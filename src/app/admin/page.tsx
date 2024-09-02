@@ -58,6 +58,7 @@ const AdminPage = () => {
   };
 
   return (
+    <div className="flex flex-col min-h-screen bg-gray-100">
     <div className="container mx-auto p-8">
       
       <div className="flex flex-row justify-between items-center mb-6 ">
@@ -70,7 +71,7 @@ const AdminPage = () => {
       {loading ? (
         <p>Loading participants...</p>
       ) : (
-        <table className="min-w-full bg-white">
+        <table className="min-w-full bg-white text-sm">
           <thead>
             <tr>
               <th className="py-2 px-4 border-b">Name</th>
@@ -106,6 +107,7 @@ const AdminPage = () => {
           </tbody>
         </table>
       )}
+    </div>
     </div>
   );
 };

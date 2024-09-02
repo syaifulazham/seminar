@@ -65,9 +65,11 @@ const ReviewPage = () => {
   }
 
   return (
+    <div className="flex flex-col min-h-screen bg-gray-100">
     <div className="container mx-auto p-8">
-      <h1 className="text-2xl font-bold mb-6">Review Payment Proof</h1>
+      
       <div className="flex flex-row justify-between items-center mb-6 ">
+      <h1 className="text-2xl font-bold">Review Payment Proof</h1>
         <div className="ml-auto">
           <ReturnHome />
         </div>
@@ -114,6 +116,7 @@ const ReviewPage = () => {
       ) : (
         <p>Participant not found.</p>
       )}
+    </div>
     </div>
   );
 };
