@@ -48,6 +48,7 @@ const UploadPage = () => {
   };
 
   return (
+    <div className="max-w-2xl mx-auto p-8 bg-white rounded-md shadow-md">
     <div className="max-w-lg mx-auto p-8">
       <h1 className="text-2xl font-bold mb-6">Upload Payment Proof</h1>
       {error && <div className="mb-4 text-red-500">{error}</div>}
@@ -75,6 +76,7 @@ const UploadPage = () => {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 };
