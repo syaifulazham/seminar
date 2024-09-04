@@ -38,3 +38,6 @@ next-env.d.ts
 
 #ssl
 /ssl
+
+# uploads
+/public/uploads
