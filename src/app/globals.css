@@ -24,6 +24,10 @@ body {margin: 0;
   background-size: cover;
   background-position: center;
   backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @layer utilities {

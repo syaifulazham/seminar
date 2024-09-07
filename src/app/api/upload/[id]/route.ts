@@ -3,6 +3,8 @@ import prisma from '@/lib/prisma';
 import { v4 as uuidv4 } from 'uuid';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { sendAcknowledgmentEmail } from '@/lib/email';
+
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -30,6 +32,8 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
         status: 'UnderReview',
       },
     });
+
+    await sendAcknowledgmentEmail(participant.email);
 
     return NextResponse.json({ message: 'Payment proof uploaded successfully', participant });
   } catch (error) {

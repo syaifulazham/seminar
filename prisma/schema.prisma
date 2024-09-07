@@ -17,6 +17,7 @@ model Participant {
   postcode        String
   town            String
   state           String
+  country         String  @default("Malaysia")
   email           String  @unique
   telephoneNumber String
   category        String

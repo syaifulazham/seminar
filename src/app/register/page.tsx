@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { countries } from '@/lib/data';
 
 const RegisterPage = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const RegisterPage = () => {
     email: '',
     telephoneNumber: '',
     category: 'With HRDC - Physical', // Default value
+    country: 'Malaysia', // {{ edit_1 }} Added country property
   });
 
   const [ministries, setMinistries] = useState([
@@ -81,6 +83,7 @@ const RegisterPage = () => {
     }
   };
 
+  
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white rounded-md shadow-md">
       <h1 className="text-2xl font-bold mb-6">Pendaftaran Seminar </h1>
@@ -113,7 +116,7 @@ const RegisterPage = () => {
         </div>
 
         <div>
-          <label htmlFor="ministry" className="block text-sm font-medium text-gray-700">Kementerian <small className="text-xs text-gray-500 italic">(Ministry)</small></label>
+          <label htmlFor="ministry" className="block text-sm font-medium text-gray-700">Jenis Organisasi <small className="text-xs text-gray-500 italic">(Organization Type)</small></label>
           <select
             id="ministry"
             name="ministry"
@@ -140,6 +143,23 @@ const RegisterPage = () => {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+        </div>
+
+        <div>
+          <label htmlFor="country" className="block text-sm font-medium text-gray-700">Negara <small className="text-xs text-gray-500 italic">(Country you currently reside in)</small></label>
+          <select
+            id="country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            required
+            className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          >
+            <option value="">Select a country</option>
+            {countries.map((country, index) => (
+              <option key={index} value={country.name}>{country.name}</option>
+            ))}
+          </select>
         </div>
 
         <div>
@@ -183,34 +203,47 @@ const RegisterPage = () => {
           </div>
 
           <div>
-            <label htmlFor="state" className="block text-sm font-medium text-gray-700">Negeri <small className="text-xs text-gray-500 italic">(State)</small></label>
-            <select
-              id="state"
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            >
-              <option value="">Pilih Negeri</option>
-              <option value="JOHOR">JOHOR</option>
-              <option value="MELAKA">MELAKA</option>
-              <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option>
-              <option value="SELANGOR">SELANGOR</option>
-              <option value="PERAK">PERAK</option>
-              <option value="KEDAH">KEDAH</option>
-              <option value="PULAU PINANG">PULAU PINANG</option>
-              <option value="PERLIS">PERLIS</option>
-              <option value="KELANTAN">KELANTAN</option>
-              <option value="PAHANG">PAHANG</option>
-              <option value="TERENGGANU">TERENGGANU</option>
-              <option value="SABAH">SABAH</option>
-              <option value="SARAWAK">SARAWAK</option>
-              <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
-              <option value="WP LABUAN">WP LABUAN</option>
-              <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
-            </select>
+          <label htmlFor="state" className="block text-sm font-medium text-gray-700">Negeri <small className="text-xs text-gray-500 italic">(State)</small></label>
+            {formData.country === 'Malaysia' ? (
+              <select
+                id="state"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              >
+                <option value="">Select a state</option>
+                <option value="JOHOR">JOHOR</option>
+                <option value="MELAKA">MELAKA</option>
+                <option value="NEGERI SEMBILAN">NEGERI SEMBILAN</option>
+                <option value="SELANGOR">SELANGOR</option>
+                <option value="PERAK">PERAK</option>
+                <option value="KEDAH">KEDAH</option>
+                <option value="PULAU PINANG">PULAU PINANG</option>
+                <option value="PERLIS">PERLIS</option>
+                <option value="KELANTAN">KELANTAN</option>
+                <option value="PAHANG">PAHANG</option>
+                <option value="TERENGGANU">TERENGGANU</option>
+                <option value="SABAH">SABAH</option>
+                <option value="SARAWAK">SARAWAK</option>
+                <option value="WP KUALA LUMPUR">WP KUALA LUMPUR</option>
+                <option value="WP LABUAN">WP LABUAN</option>
+                <option value="WP PUTRAJAYA">WP PUTRAJAYA</option>
+              </select>
+            ) : (
+              <input
+                type="text"
+                id="state"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              />
+            )}
           </div>
+          
         </div>
 
         <div>
@@ -250,10 +283,10 @@ const RegisterPage = () => {
             className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Pilih Kategori</option>
-            <option value="With HRDC - Physical">With HRDC - Physical (RM500)</option>
-            <option value="With HRDC - Online">With HRDC - Online (RM650)</option>
-            <option value="Without HRDC - Physical">Without HRDC - Physical (RM650)</option>
-            <option value="Without HRDC - Online">Without HRDC - Online (RM800)</option>
+            <option value="With HRDC - Physical">With HRDC - Physical (RM650)</option>
+            <option value="With HRDC - Online">With HRDC - Online (RM800)</option>
+            <option value="Without HRDC - Physical">Without HRDC - Physical (RM500)</option>
+            <option value="Without HRDC - Online">Without HRDC - Online (RM650)</option>
           </select>
         </div>
 
@@ -263,7 +296,7 @@ const RegisterPage = () => {
             disabled={loading}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {loading ? 'Didaftarkan...' : 'Daftar'}
+            {loading ? 'Registering...' : 'Daftar/ Register'}
           </button>
         </div>
       </form>
