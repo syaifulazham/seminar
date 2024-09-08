@@ -23,7 +23,19 @@ model Participant {
   category        String
   paymentProof    String? // URL to the uploaded payment proof
   status          String  @default("Pending") // Pending, Approved, UnderReview
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt @default(now())
 }
+
+model Receipt {
+  id         Int     @id @default(autoincrement())
+  invoice    String  @unique
+  item       String
+  amount     Float @default(0.00)
+  bank       String
+  createdAt  DateTime @default(now())
+}
+
 
 model Admin {
   id       Int    @id @default(autoincrement())

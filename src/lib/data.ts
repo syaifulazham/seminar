@@ -21,6 +21,14 @@ export async function getParticipantStats() {
 }
 
 
+export const GetPrices = {
+    "With HRDC - Physical": 500,
+    "With HRDC - Online": 650,
+    "Without HRDC - Physical": 650,
+    "Without HRDC - Online": 800,
+} 
+
+
 type Country = { name: string; code: string }; // Define the Country type
 export const countries: Country[] = [
     { name: 'Afghanistan', code: 'AF' },

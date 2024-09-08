@@ -23,7 +23,8 @@ const RegisterPage = () => {
 
   const [ministries, setMinistries] = useState([
     "SYARIKAT SWASTA",
-    "PERTUBUHAN",
+    "SYARIKAT AWAM BERHAD",
+    "PERTUBUHAN BUKAN KERAJAAN/ NGO",
     "KEMENTERIAN KEWANGAN (MOF)",
     "KEMENTERIAN KEMAJUAN DESA DAN WILAYAH (KKDW)",
     "KEMENTERIAN PERUSAHAAN PERLADANGAN DAN KOMODITI (MPIC)",
@@ -103,7 +104,7 @@ const RegisterPage = () => {
         </div>
 
         <div>
-            <label htmlFor="ic" className="block text-sm font-medium text-gray-700">No K/P <small className="text-xs text-gray-500 italic">(IC Number)</small></label>
+            <label htmlFor="ic" className="block text-sm font-medium text-gray-700">No K/P/ Passport <small className="text-xs text-gray-500 italic">(IC/ Passport Number)</small></label>
           <input
             type="text"
             id="ic"
@@ -125,7 +126,7 @@ const RegisterPage = () => {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option value="">TIDAK BERKENAAN</option>
+            <option value="">Select Organization Type</option>
             {ministries.map((ministry, index) => (
               <option key={index} value={ministry}>{ministry}</option>
             ))}
@@ -257,6 +258,7 @@ const RegisterPage = () => {
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           />
+          <p className="text-xs text-gray-500 italic">*Please enter your active email to receive invoices, receipts, seminar tickets and Zoom links</p>
         </div>
 
         <div>

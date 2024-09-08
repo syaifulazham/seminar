@@ -41,20 +41,24 @@ const ReviewPage = () => {
         },
         body: JSON.stringify({ status: newStatus }),
       });
-
+  
+      const responseData = await res.json(); // Parse response
+      console.log('API Response:', responseData); // Log full response
+  
       if (res.ok) {
         router.push('/admin');
       } else {
         throw new Error('Failed to update participant status');
       }
-    } catch (err: unknown) { // Specify the type of err
-      if (err instanceof Error) { // Check if err is an instance of Error
+    } catch (err: unknown) {
+      if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError('An unknown error occurred'); // Handle unknown error types
+        setError('An unknown error occurred');
       }
     }
   };
+  
 
   if (loading) {
     return <p>Loading participant details...</p>;

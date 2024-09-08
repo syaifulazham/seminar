@@ -16,8 +16,6 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       return NextResponse.json({ message: 'Status is required' }, { status: 400 });
     }
 
-    console.log('Status:---------------->>>>>>>', status);
-
     // Find the participant
     const participant = await prisma.participant.findUnique({
       where: { id: participantId },
