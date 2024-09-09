@@ -410,7 +410,7 @@ export async function sendRegistrationEmail(email: string, participantId: number
       attachments: [
         {
           filename: `Invoice_${participant.id}.pdf`, // Name of the attached invoice
-          content: invoicePdf, // Convert Uint8Array to Buffer
+          content: Buffer.from(invoicePdf), // Convert Uint8Array to Buffer
           contentType: 'application/pdf', // Content type
         },
         {
@@ -511,7 +511,7 @@ export const sendApprovalEmail = async (participantId: number) => {
     attachments: [
       {
         filename: `Receipt_${participant.id}.pdf`, // Name of the PDF file
-        content: pdfReceipt, // PDF content in bytes
+        content: Buffer.from(pdfReceipt), // PDF content in bytes
         contentType: 'application/pdf', // Set the content type
       },
       {
