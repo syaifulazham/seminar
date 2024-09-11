@@ -57,7 +57,7 @@ const AdminPage = () => {
     };
 
     fetchParticipants();
-  }, []);
+  }, [router]);
 
   // Handle review click
   const handleReviewClick = (id: number) => {
