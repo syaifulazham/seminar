@@ -4,6 +4,7 @@ import Image from 'next/image';
 import jata from '@/lib/images/jata.png';
 import kesuma from '@/lib/images/kesuma.png';
 import workers from '@/lib/images/workers.png';
+import { FaEarlybirds } from "react-icons/fa6";
 
 const Home = () => {
   return (
@@ -44,30 +45,62 @@ const Home = () => {
       <div className={styles.categories}>
         {/* With HRDC Section */}
         <div className={styles.categoryCard}>
-          <h2 className={styles.categoryTitle}>With HRDC</h2>
+          <h2 className={styles.categoryTitle}>Dengan HRDC</h2>
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
-              <h3>Physical</h3>
-              <p>Explore seminars conducted physically with HRDC approval.</p>
+              <h3>Fizikal</h3>
+              <p>Terokai seminar yang dijalankan secara fizikal dengan kelulusan HRDC.</p>
+              <div className={styles.early_bird_container}>
+                <FaEarlybirds className="text-4xl" />
+                Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 8 Oktober 2024
+                <span className={styles.normal_price_container}>Harga Normal RM850</span>
+              </div>
+              <Link href="/register?type=physical&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Sertai
+              </Link>
             </div>
             <div className={styles.subcategory}>
-              <h3>Online</h3>
-              <p>Attend online seminars with HRDC certification.</p>
+              <h3>Atas Talian (Zoom Meeting)</h3>
+              <p>Sertai seminar dalam talian dengan pensijilan dari HRDC.</p>
+              <div className={styles.early_bird_container}>
+                <FaEarlybirds className="text-4xl" />
+                Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 8 Oktober 2024
+                <span className={styles.normal_price_container}>Harga Normal RM850</span>
+              </div>
+              <Link href="/register?type=online&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Sertai
+              </Link>
             </div>
           </div>
         </div>
 
         {/* Without HRDC Section */}
         <div className={styles.categoryCard}>
-          <h2 className={styles.categoryTitle}>Without HRDC</h2>
+          <h2 className={styles.categoryTitle}>Tanpa HRDC</h2>
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
-              <h3>Physical</h3>
-              <p>Join in-person seminars without HRDC affiliation.</p>
+              <h3>Fizikal</h3>
+              <p>Sertai seminar secara fizikal tanpa afiliasi HRDC.</p>
+              <div className={styles.early_bird_container}>
+                <FaEarlybirds className="text-4xl" />
+                Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 8 Oktober 2024
+                <span className={styles.normal_price_container}>Harga Normal RM650</span>
+              </div>
+              <Link href="/register?type=physical&category=withoutHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Sertai
+              </Link>
             </div>
             <div className={styles.subcategory}>
-              <h3>Online</h3>
-              <p>Participate in various online seminars without HRDC requirements.</p>
+              <h3>Atas Talian (Zoom Meeting)</h3>
+              <p>Sertai kami dalam talian melalui Zoom Meeting tanpa HRDC.</p>
+              <div className={styles.early_bird_container}>
+                <FaEarlybirds className="text-4xl" />
+                Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 8 Oktober 2024
+                <span className={styles.normal_price_container}>Harga Normal RM650</span>
+              </div>
+              <Link href="/register?type=online&category=withoutHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Sertai
+              </Link>
             </div>
           </div>
         </div>

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { countries } from '@/lib/data';
+import { useSearchParams } from 'next/navigation'; // {{ edit_1 }}
 
 const RegisterPage = () => {
   const router = useRouter();
+  const searchParams = useSearchParams(); // {{ edit_2 }}
   const [formData, setFormData] = useState({
     name: '',
     ic: '',
@@ -17,9 +19,21 @@ const RegisterPage = () => {
     state: '',
     email: '',
     telephoneNumber: '',
-    category: 'With HRDC - Physical', // Default value
+    category: `With HRDC - Physical`, // Default value
     country: 'Malaysia', // {{ edit_1 }} Added country property
   });
+
+  useEffect(() => {
+    const type = searchParams.get('type'); // {{ edit_3 }}
+    const category = searchParams.get('category'); // {{ edit_4 }}
+
+    if (type && category) {
+      setFormData(prevState => ({
+        ...prevState,
+        category: `${category==="withHRDC" ? "With HRDC" : "Without HRDC"} - ${type==="physical" ? "Physical" : "Online"}`,
+      }));
+    }
+  }, [searchParams]); // {{ edit_5 }}
 
   const [ministries, setMinistries] = useState([
     "SYARIKAT SWASTA",
@@ -285,10 +299,10 @@ const RegisterPage = () => {
             className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Pilih Kategori</option>
-            <option value="With HRDC - Physical">With HRDC - Physical (RM650)</option>
-            <option value="With HRDC - Online">With HRDC - Online (RM800)</option>
-            <option value="Without HRDC - Physical">Without HRDC - Physical (RM500)</option>
-            <option value="Without HRDC - Online">Without HRDC - Online (RM650)</option>
+            <option value="With HRDC - Physical">With HRDC - Physical</option>
+            <option value="With HRDC - Online">With HRDC - Online</option>
+            <option value="Without HRDC - Physical">Without HRDC - Physical</option>
+            <option value="Without HRDC - Online">Without HRDC - Online</option>
           </select>
         </div>
 
