@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'; // stays as it is
 
 const RegisterPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  //const searchParams = useSearchParams();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -25,6 +25,7 @@ const RegisterPage = () => {
   });
 
   // Ensure that searchParams are only accessed in the browser
+  /*
   useEffect(() => {
     if (typeof window !== 'undefined') { // client-side check
       const type = searchParams.get('type');
@@ -40,6 +41,7 @@ const RegisterPage = () => {
       }
     }
   }, [searchParams]);
+  */
 
   const [ministries, setMinistries] = useState([
     "SYARIKAT SWASTA",
