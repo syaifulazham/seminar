@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { countries } from '@/lib/data';
-import { useSearchParams } from 'next/navigation'; // {{ edit_1 }}
+import { useSearchParams } from 'next/navigation'; // stays as it is
 
 const RegisterPage = () => {
   const router = useRouter();
-  const searchParams = useSearchParams(); // {{ edit_2 }}
+  const searchParams = useSearchParams();
+  
   const [formData, setFormData] = useState({
     name: '',
     ic: '',
@@ -19,21 +20,26 @@ const RegisterPage = () => {
     state: '',
     email: '',
     telephoneNumber: '',
-    category: `With HRDC - Physical`, // Default value
-    country: 'Malaysia', // {{ edit_1 }} Added country property
+    category: 'With HRDC - Physical',
+    country: 'Malaysia',
   });
 
+  // Ensure that searchParams are only accessed in the browser
   useEffect(() => {
-    const type = searchParams.get('type'); // {{ edit_3 }}
-    const category = searchParams.get('category'); // {{ edit_4 }}
+    if (typeof window !== 'undefined') { // client-side check
+      const type = searchParams.get('type');
+      const category = searchParams.get('category');
 
-    if (type && category) {
-      setFormData(prevState => ({
-        ...prevState,
-        category: `${category==="withHRDC" ? "With HRDC" : "Without HRDC"} - ${type==="physical" ? "Physical" : "Online"}`,
-      }));
+      if (type && category) {
+        setFormData((prevState) => ({
+          ...prevState,
+          category: `${
+            category === 'withHRDC' ? 'With HRDC' : 'Without HRDC'
+          } - ${type === 'physical' ? 'Physical' : 'Online'}`,
+        }));
+      }
     }
-  }, [searchParams]); // {{ edit_5 }}
+  }, [searchParams]);
 
   const [ministries, setMinistries] = useState([
     "SYARIKAT SWASTA",
