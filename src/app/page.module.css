@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Allison&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+/* Overall container for the poster layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, #87CEEB, #4682B4);
+    background-color: #f9f9f9;
+  }
+  
+  /* Top logo container */
+  .logoContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    margin: 0 20px;
+  }
+  
+  /* Categories section container */
+  .categories {
+    font-family: "Roboto Condensed", sans-serif;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    width: 80%;
+  }
+  
+  /* Each category card */
+  .categoryCard {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Title for each category */
+  .categoryTitle {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #444;
+  }
+  
+  /* Subcategories */
+  .subcategories {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .subcategory {
+    text-align: center;
+  }
+  
+  .subcategory h3 {
+    font-size: 1.5rem;
+    color: #666;
+  }
+  
+  .subcategory p {
+    font-size: 1rem;
+    color: #777;
+  }
+
+  
+  
+  /* Main Heading */
+  .heading {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #fff;
+    max-width: 700px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .motto{
+    font-family: 'Allison', cursive;
+    font-size: 4rem;
+    color: #fbff0c;
+    line-height: 1;
+    margin-bottom: 30px;
+  }
+  
+
+  .schedule_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 0;
+    max-width: 1000px;
+  }
+
+  .schedule {
+    font-family: "Roboto Condensed", sans-serif;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 5px;
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .schedule > .item {
+    font-size: 0.8rem;
+    border-bottom: 1px solid #dddddd;
+    text-align: justify;
+    padding: 8px;
+  }
+
+  .schedule div {
+    text-align: center;
+  }
+
+  .grid_item_colspan_2 {
+    grid-column: span 2;
+    font-size: 0.8rem;
+    border-bottom: 1px solid #dddddd;
+    text-align: justify;
+    padding: 8px;
+  }
