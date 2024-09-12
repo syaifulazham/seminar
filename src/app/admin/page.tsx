@@ -118,9 +118,9 @@ const AdminPage = () => {
                 >
                   <option value="">All Category</option>
                   <option value="With HRDC - Online">With HRDC - Online</option>
-                  <option value="With HRDC - Offline">With HRDC - Offline</option>
+                  <option value="With HRDC - Physical">With HRDC - Physical</option>
                   <option value="Without HRDC - Online">Without HRDC - Online</option>
-                  <option value="Without HRDC - Offline">Without HRDC - Offline</option>
+                  <option value="Without HRDC - Physical">Without HRDC - Physical</option>
                 </select>
               </div>
               <div className="flex flex-col">
