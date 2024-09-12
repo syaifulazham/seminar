@@ -1,32 +1,32 @@
 import { prisma } from '@/lib/prisma'; // Adjust the path to your prisma instance
 
 export async function getParticipantStats() {
-  const statusCount = await prisma.participant.groupBy({
-    by: ['status'],
-    _count: {
-      status: true,
-    },
-  });
+    const statusCount = await prisma.participant.groupBy({
+        by: ['status'],
+        _count: {
+            status: true,
+        },
+    });
 
-  const categoryCount = await prisma.participant.groupBy({
-    by: ['category'],
-    _count: {
-      category: true,
-    },
-  });
+    const categoryCount = await prisma.participant.groupBy({
+        by: ['category'],
+        _count: {
+            category: true,
+        },
+    });
 
-  const totalParticipants = await prisma.participant.count();
+    const totalParticipants = await prisma.participant.count();
 
-  return { statusCount, categoryCount, totalParticipants };
+    return { statusCount, categoryCount, totalParticipants };
 }
 
 
 export const GetPrices = {
-    "With HRDC - Physical": 500,
+    "With HRDC - Physical": 650,
     "With HRDC - Online": 650,
-    "Without HRDC - Physical": 650,
-    "Without HRDC - Online": 800,
-} 
+    "Without HRDC - Physical": 500,
+    "Without HRDC - Online": 500
+}
 
 
 type Country = { name: string; code: string }; // Define the Country type
@@ -223,4 +223,4 @@ export const countries: Country[] = [
     { name: 'Yemen', code: 'YE' },
     { name: 'Zambia', code: 'ZM' },
     { name: 'Zimbabwe', code: 'ZW' }
-  ];
+];

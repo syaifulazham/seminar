@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import QRCode from 'qrcode';
 import prisma from '@/lib/prisma';
 import {GetPrices} from '@/lib/data';
 import fs from 'fs';
@@ -118,7 +119,7 @@ async function generateInvoice(participant: {
     { label: '', value: `${country}`},
     { label: 'No. telefon:', value: telephoneNumber },
     { label: 'Emel:', value: email },
-    { label: 'Amaun Perlu Bayar: RM', value: GetPrices[category as keyof typeof GetPrices] }, // Type assertion added
+    { label: 'Amaun Perlu Bayar: RM', value: GetPrices[category as keyof typeof GetPrices].toString() }, // Type assertion added
   ];
 
   for (const { label, value } of tableData) {
@@ -336,7 +337,108 @@ async function generateReceipt(participantDetails: {
   return pdfBytes;
 }
 
-// Function to send approval email with attached PDF receipt
+
+// Function to generate PDF invitation card
+async function generateInvitationCard(participantDetails: {
+  receiptNo: string;
+  invoiceNo: string;
+  date: string;
+  name: string;
+  icNo: string;
+  department: string;
+  address: string;
+  postcode: string;
+  town: string;
+  state: string;
+  country: string;
+  phoneNumber: string;
+  email: string;
+  amountPaid: string;
+  category: string;
+  bank: string;
+}) {
+  const { receiptNo, invoiceNo, date, name, icNo, department, address, postcode, town, state, country, phoneNumber, email, amountPaid, category, bank } = participantDetails;
+  // Create a new PDFDocument
+  const pdfDoc = await PDFDocument.create();
+
+  // Add a blank page to the document
+  const page = pdfDoc.addPage([600, 800]); // A4 dimensions
+
+  // Load the header image
+  const imagePath = path.resolve('./src/lib/images/jkkp-header.png');
+  const imageBuffer = fs.readFileSync(imagePath);
+  const headerImage = await pdfDoc.embedPng(imageBuffer);
+  const imageDims = headerImage.scale(1); // Adjust the scale as needed
+
+  // Draw the header image at the top of the page
+  page.drawImage(headerImage, {
+    x: 50,
+    y: page.getHeight() - imageDims.height - 50,
+    width: imageDims.width,
+    height: imageDims.height,
+  });
+
+  // Set font and position for text
+  const fontSize = 12;
+  const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+  let yPosition = page.getHeight() - imageDims.height - 100;
+
+  // Invitation text
+  const invitationText = `
+  Tuan, Puan, Encik, Cik:
+  ${name},
+
+  ${department},
+  ${address},
+  ${postcode},
+  ${town},
+  ${state},
+  ${country}
+
+Terimakasih kerana menyertai program ${category} bersempena dengan
+SEMINAR & MAJLIS PERASMIAN GARIS PANDUAN PRISMA DI TEMPAT KERJA 2024
+
+Jangan lupa temujanji kita pada 26-27 OKTOBER 2024
+Sila gunakan QR Code yang disertakan untuk pengesahan kehadiran kursus fizikal di kaunter pendaftaran
+
+Kerja Selamat, Minda Sejahtera
+
+SEMINAR & MAJLIS PERASMIAN GARIS PANDUAN PRISMA DI TEMPAT KERJA 2024
+`;
+
+  page.drawText(invitationText, {
+    x: 50,
+    y: yPosition,
+    size: fontSize,
+    font: timesRomanFont,
+    color: rgb(0, 0, 0),
+    lineHeight: 18,
+  });
+
+  yPosition -= 150;
+
+  // Generate a QR code (100x100mm QR code)
+  const crypto = require('crypto');
+  const secretKey = process.env.SECRET_KEY;
+  const qrCodeData = `${invoiceNo}${secretKey}`;
+  const qrCodeHash = crypto.createHash('sha256').update(qrCodeData).digest('hex');
+  
+  const qrCodeUrl = await QRCode.toDataURL(qrCodeHash);
+  const qrImage = await pdfDoc.embedPng(qrCodeUrl.split(',')[1]); // Removed 'base64' argument
+  const qrDims = qrImage.scale(1); // Adjust the scale as needed
+
+  // Draw the QR code image
+  page.drawImage(qrImage, {
+    x: ((page.getWidth() - qrDims.width) / 3) * 2, // Center the QR code horizontally
+    y: yPosition,
+    width: qrDims.width,
+    height: qrDims.height,
+  });
+
+  // Save the PDF to bytes
+  const pdfBytes = await pdfDoc.save();
+  return pdfBytes;
+}
 
 
 
@@ -366,6 +468,7 @@ if (!smtp_options.host || !smtp_options.port || !smtp_options.auth.user || !smtp
 export async function sendRegistrationEmail(email: string, participantId: number) {
   try {
     // Fetch participant data from Prisma
+    const crypto = require('crypto');
     const participant = await prisma.participant.findUnique({
       where: { id: participantId },
     });
@@ -400,13 +503,21 @@ export async function sendRegistrationEmail(email: string, participantId: number
     // Initialize email transporter
     const transporter = nodemailer.createTransport(smtp_options);
 
+    const hash = crypto.createHash('sha256').update(`${participant.id}${process.env.SECRET_KEY}`).digest('hex')
+
     // Send email with the PDF invoice attached
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: participant.email,
       subject: 'Invoice for Registration',
       text: 'Thank you for registering. Please find your invoice attached.',
-      html: `<p>Thank you for registering. Please find your invoice attached.</p><img src="cid:flow.png" alt="Flow Chart">`,
+      html: `
+      <p>Thank you for registering. Please find your invoice attached.</p><img src="cid:flow.png" alt="Flow Chart">
+      <p>Please proceed to make payment to the following account:</p>
+      <p>Maybank 5644 2720 0291</p>
+      <p>Please use the invoice number as the reference number.</p>
+      <p>Please upload the payment proof to the following link: ${process.env.NEXT_PUBLIC_BASE_URL}/upload/${hash}</p>
+      `,
       attachments: [
         {
           filename: `Invoice_${participant.id}.pdf`, // Name of the attached invoice
@@ -442,6 +553,7 @@ export async function sendAcknowledgmentEmail(email: string) {
   });
 }
 
+// Function to send approval email with attached PDF receipt
 export const sendApprovalEmail = async (participantId: number) => {
   const transporter = nodemailer.createTransport(smtp_options);
 
@@ -501,6 +613,9 @@ export const sendApprovalEmail = async (participantId: number) => {
   // Generate the PDF receipt
   const pdfReceipt = await generateReceipt(participantDetails);
 
+  // Generate the PDF invitation card
+  const pdfInvitation = await generateInvitationCard(participantDetails);
+
   // Send the email with the attached PDF
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
@@ -512,6 +627,11 @@ export const sendApprovalEmail = async (participantId: number) => {
       {
         filename: `Receipt_${participant.id}.pdf`, // Name of the PDF file
         content: Buffer.from(pdfReceipt), // PDF content in bytes
+        contentType: 'application/pdf', // Set the content type
+      },
+      {
+        filename: `Invitation_${participant.id}.pdf`, // Name of the PDF file
+        content: Buffer.from(pdfInvitation), // PDF content in bytes
         contentType: 'application/pdf', // Set the content type
       },
       {

@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { sendRegistrationEmail } from '@/lib/email';
+import { createHash } from 'crypto';
+
+const generateHash = (id: number, secretKey: string) => {
+  return createHash('sha256').update(`${id}${secretKey}`).digest('hex');
+};
 
 export async function POST(req: NextRequest) {
   try {
@@ -38,6 +43,14 @@ export async function POST(req: NextRequest) {
         telephoneNumber,
         category,
       },
+    });
+
+    const hash = generateHash(participant.id, process.env.SECRET_KEY as string);
+
+    // Update the participant with the generated hash
+    await prisma.participant.update({
+      where: { id: participant.id },
+      data: { hashid: hash }, // Ensure 'hash' is defined in the Prisma schema
     });
 
     // Send acknowledgment email with a link to upload payment proof

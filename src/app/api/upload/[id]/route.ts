@@ -9,6 +9,7 @@ import { sendAcknowledgmentEmail } from '@/lib/email';
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     // Parse the form data
+    const crypto = require('crypto');
     const formData = await req.formData();
     const file = formData.get('paymentProof') as File | null;
 
@@ -23,10 +24,9 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
 
     const fileBuffer = await file.arrayBuffer();
     await fs.writeFile(filePath, Buffer.from(fileBuffer));
-
-    // Update the participant's record in the database
+// Update the participant's record in the database
     const participant = await prisma.participant.update({
-      where: { id: parseInt(params.id) },
+      where: { hashid: params.id },
       data: {
         paymentProof: `/uploads/${fileName}`,
         status: 'UnderReview',

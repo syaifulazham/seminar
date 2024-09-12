@@ -324,6 +324,9 @@ const RegisterPage = () => {
           </button>
         </div>
       </form>
+      <div className="mt-4 text-xs text-gray-500">
+        <p>Data pribadi anda dilindungi di bawah Akta Perlindungan Data Peribadi Malaysia 2010 (PDPA)</p>
+      </div>
     </div>
   );
 };

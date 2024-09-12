@@ -5,6 +5,7 @@ import jata from '@/lib/images/jata.png';
 import kesuma from '@/lib/images/kesuma.png';
 import workers from '@/lib/images/workers.png';
 import { FaEarlybirds } from "react-icons/fa6";
+import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
 
 const Home = () => {
   return (
@@ -24,21 +25,32 @@ const Home = () => {
       <h1 className={styles.motto}>Kerja Selamat, Minda Sejahtera</h1>
 
       <div className={styles.schedule_container}>
-      <Image src={workers} alt="Logo 1" width={500} />
-      <div className={styles.schedule}>
-            <div className={styles.grid_item_colspan_2}>26 OKTOBER 2024</div>
-            <div className={styles.grid_item_colspan_2}>27 OKTOBER 2024</div>
-            <div className={styles.item} >Majlis Perasmian Garis Panduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja 2024</div>
-            <div className={styles.item}>Sinopsis Garis Panduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja (PRisMA) 2024</div>
-            <div className={styles.item}>Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja</div>
-            <div className={styles.item}>Aplikasi Garispanduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja</div>
-            <div className={styles.item}>Cabaran Kesihatan Mental di Malaysia</div>
-            <div className={styles.item}>Pentaksiran Risiko Psikososial Pekerjaan di Tempat Kerja (PRisMA)</div>
-            <div className={styles.item}>Psychological First Aid Programme</div>
-            <div className={styles.item}>Perkongsian Pengurusan Kesihatan Mental di Industri</div>
+        <Image src={workers} alt="Logo 1" width={500} />
+        <div className={styles.schedule_wrapper}>
+          <div className={styles.schedule}>
+            <div className={styles.grid_item_colspan_2_header}>26 OKTOBER 2024</div>
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Majlis Perasmian Garis Panduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja 2024</div>
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Sinopsis Garis Panduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja (PRisMA) 2024</div>
+            
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Cabaran Kesihatan Mental di Malaysia</div>
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Pentaksiran Risiko Psikososial Pekerjaan di Tempat Kerja (PRisMA)</div>
+            
             <div className={styles.grid_item_colspan_2}>Pengenalan Berdasarkan Kajian Pembangunan Garis Panduan Pentaksiran dan Pengurusan Psikososial di Tempat Kerja</div>
+            
+          </div>
+
+          <div className={styles.schedule}>
+            <div className={styles.grid_item_colspan_2_header}>27 OKTOBER 2024</div>
+            
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja</div>
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Aplikasi Garispanduan Pentaksiran dan Pengurusan Risiko Psikososial Pekerjaan di Tempat Kerja</div>
+            
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Psychological First Aid Programme</div>
+            <div className={styles.item} ><AiFillSchedule className="text-2xl" />Perkongsian Pengurusan Kesihatan Mental di Industri</div>
+            
             <div className={styles.grid_item_colspan_2}>Pengurusan Penyakit Psikososial di Tempat Kerja</div>
           </div>
+        </div>
       </div>
 
       {/* Categories Section */}
@@ -49,7 +61,7 @@ const Home = () => {
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
-              <p>Terokai seminar yang dijalankan secara fizikal dengan kelulusan HRDC.</p>
+
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 8 Oktober 2024
@@ -60,8 +72,9 @@ const Home = () => {
               </Link>
             </div>
             <div className={styles.subcategory}>
-              <h3>Atas Talian (Zoom Meeting)</h3>
-              <p>Sertai seminar dalam talian dengan pensijilan dari HRDC.</p>
+              <h3>Atas Talian</h3>
+              <h2 className={styles.zoom_meeting_label}><span className={styles.iconContainer}><AiFillVideoCamera /></span>Zoom Meeting</h2>
+
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 8 Oktober 2024
@@ -80,7 +93,7 @@ const Home = () => {
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
-              <p>Sertai seminar secara fizikal tanpa afiliasi HRDC.</p>
+
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 8 Oktober 2024
@@ -91,8 +104,9 @@ const Home = () => {
               </Link>
             </div>
             <div className={styles.subcategory}>
-              <h3>Atas Talian (Zoom Meeting)</h3>
-              <p>Sertai kami dalam talian melalui Zoom Meeting tanpa HRDC.</p>
+              <h3>Atas Talian</h3>
+              <h2 className={styles.zoom_meeting_label}><span className={styles.iconContainer}><AiFillVideoCamera /></span>Zoom Meeting</h2>
+
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 8 Oktober 2024
