@@ -22,7 +22,7 @@ const Home = () => {
 
       {/* Heading */}
       <h1 className={styles.heading}>SEMINAR & MAJLIS PERASMIAN GARIS PANDUAN PRISMA DI TEMPAT KERJA 2024</h1>
-      <h1 className={styles.motto}>Kerja Selamat, Minda Sejahtera</h1>
+      <h1 className={styles.motto}>Pekerja Sihat, Minda Sejahtera</h1>
 
       <div className={styles.schedule_container}>
         <Image src={workers} alt="Logo 1" width={500} />
@@ -57,7 +57,7 @@ const Home = () => {
       <div className={styles.categories}>
         {/* With HRDC Section */}
         <div className={styles.categoryCard}>
-          <h2 className={styles.categoryTitle}>Dengan HRDC</h2>
+          <h2 className={styles.categoryTitle}>PAKEJ HRDC</h2>
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
@@ -89,7 +89,7 @@ const Home = () => {
 
         {/* Without HRDC Section */}
         <div className={styles.categoryCard}>
-          <h2 className={styles.categoryTitle}>Tanpa HRDC</h2>
+          <h2 className={styles.categoryTitle}>PAKEJ BIASA</h2>
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
