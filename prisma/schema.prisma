@@ -9,7 +9,7 @@ generator client {
 
 model Participant {
   id              Int      @id @default(autoincrement())
-  hashid          String   @unique
+  hashid          String   @unique @default("")
   name            String
   ic              String
   ministry        String
@@ -28,7 +28,7 @@ model Participant {
   updatedAt       DateTime @updatedAt @default(now())
   lastUpdateBy    String?
 }
-  
+
 model Receipt {
   id            Int       @id @default(autoincrement())
   invoice       String    @unique
