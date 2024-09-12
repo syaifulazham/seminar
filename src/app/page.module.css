@@ -186,10 +186,17 @@
 
   .grid_item_colspan_2 {
     grid-column: span 2;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    border: 1px dotted #dddddd;
+    border-radius: 10px;
     text-align: justify;
     padding: 8px;
-    height: 100px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
   }
 
   .early_bird_container {

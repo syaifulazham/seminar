@@ -37,7 +37,7 @@ const Home = () => {
             <div className={styles.item} ><AiFillSchedule className="text-2xl" />Cabaran Kesihatan Mental di Malaysia</div>
             <div className={styles.item} ><AiFillSchedule className="text-2xl" />Pentaksiran Risiko Psikososial Pekerjaan di Tempat Kerja (PRisMA)</div>
             
-            <div className={styles.grid_item_colspan_2}>Pengenalan Berdasarkan Kajian Pembangunan Garis Panduan Pentaksiran dan Pengurusan Psikososial di Tempat Kerja</div>
+            <div className={styles.grid_item_colspan_2}><AiFillSchedule className="text-2xl" />Pengenalan Berdasarkan Kajian Pembangunan Garis Panduan Pentaksiran dan Pengurusan Psikososial di Tempat Kerja</div>
             
           </div>
 
@@ -50,7 +50,7 @@ const Home = () => {
             <div className={styles.item} ><AiFillSchedule className="text-2xl" />Psychological First Aid Programme</div>
             <div className={styles.item} ><AiFillSchedule className="text-2xl" />Perkongsian Pengurusan Kesihatan Mental di Industri</div>
             
-            <div className={styles.grid_item_colspan_2}>Pengurusan Penyakit Psikososial di Tempat Kerja</div>
+            <div className={styles.grid_item_colspan_2}><AiFillSchedule className="text-2xl" />Pengurusan Penyakit Psikososial di Tempat Kerja</div>
           </div>
         </div>
       </div>
