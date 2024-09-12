@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
       email,
       telephoneNumber,
       category,
+      hashid
     } = body;
 
     // Save participant data to the database
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
         email,
         telephoneNumber,
         category,
+        hashid
       },
     });
 
