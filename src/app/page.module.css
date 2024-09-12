@@ -91,6 +91,29 @@
     text-shadow: 1px 1px 2px #000;
   }
 
+  .headingMadani {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ebc72a;
+    max-width: 600px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  
+  .headingPeringkat {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ffffff;
+    max-width: 600px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+  }
+
   .motto{
     font-family: 'Allison', cursive;
     font-size: 4rem;

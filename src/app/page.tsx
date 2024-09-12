@@ -21,7 +21,9 @@ const Home = () => {
       </div>
 
       {/* Heading */}
-      <h1 className={styles.heading}>SEMINAR & MAJLIS PERASMIAN GARIS PANDUAN PRISMA DI TEMPAT KERJA 2024</h1>
+      <h1 className={styles.heading}>KARNIVAL KESIHATAN PEKERJAAN </h1>
+      <h1 className={styles.headingMadani}>KESUMA MADANI </h1>
+      <h1 className={styles.headingPeringkat}>PERINGKAT KEBANGSAAN 2024</h1>
       <h1 className={styles.motto}>Pekerja Sihat, Minda Sejahtera</h1>
 
       <div className={styles.schedule_container}>
