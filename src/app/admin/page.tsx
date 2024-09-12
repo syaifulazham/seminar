@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { VscPreview, VscCheck, VscPass, VscEye } from 'react-icons/vsc';
-import { GoStats, Logout } from '@/components/useful';
+import { Logout } from '@/components/useful';
 
 const PillApproved = () => (
   <div className="flex flex-row items-center p-1 bg-green-500 text-white rounded-md">
@@ -99,7 +99,6 @@ const AdminPage = () => {
         <div className="flex flex-row justify-between items-center mb-6">
           <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
           <div className="flex flex-row items-center ml-auto">
-            <GoStats />
             <Logout />
           </div>
         </div>
