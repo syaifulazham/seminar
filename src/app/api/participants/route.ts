@@ -48,8 +48,16 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 export async function GET() {
   try {
     const participants = await prisma.participant.findMany();
-    return NextResponse.json(participants);
+
+    // Disable caching
+    const response = NextResponse.json(participants);
+    response.headers.set('Cache-Control', 'no-store, max-age=0');
+
+    return response;
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to load participants' }, { status: 500 });
+    return NextResponse.json(
+      { message: 'Failed to load participants' },
+      { status: 500 }
+    );
   }
 }
