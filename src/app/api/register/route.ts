@@ -12,6 +12,8 @@ export async function POST(req: NextRequest) {
     // Parse the request body
     const body = await req.json();
 
+    const hashid = "" as string;
+
     const {
       name,
       ic,
@@ -24,8 +26,7 @@ export async function POST(req: NextRequest) {
       country,
       email,
       telephoneNumber,
-      category,
-      hashid
+      category
     } = body;
 
     // Save participant data to the database
@@ -42,8 +43,7 @@ export async function POST(req: NextRequest) {
         country,
         email,
         telephoneNumber,
-        category,
-        hashid
+        category
       },
     });
 
