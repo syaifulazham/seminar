@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
+    "@react-google-maps/api": "^2.19.3",
     "@types/uuid": "^10.0.0",
     "bcrypt": "^5.1.1",
     "formidable": "^3.5.1",

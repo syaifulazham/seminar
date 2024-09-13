@@ -103,6 +103,28 @@
     text-shadow: 1px 1px 2px #000;
   }
 
+  .heading2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #fff;
+    max-width: 600px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+  }
+
+  .headingMadani2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ebc72a;
+    max-width: 600px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+  }
+
   
   .headingPeringkat {
     font-size: 2rem;
@@ -113,6 +135,18 @@
     max-width: 600px;
     line-height: 1;
     text-shadow: 1px 1px 2px #000;
+  }
+
+  .headingSection{
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ffffff;
+    max-width: 600px;
+    line-height: 1;
+    text-shadow: 1px 1px 2px #000;
+    padding-top: 20px;
   }
 
   .motto{
