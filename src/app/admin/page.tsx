@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { VscPreview, VscCheck, VscPass, VscEye } from 'react-icons/vsc';
+import { VscPreview, VscCheck, VscPass, VscEye, VscClose } from 'react-icons/vsc';
 import { Logout } from '@/components/useful';
 
+// Pill Components (Status Badges)
 const PillApproved = () => (
   <div className="flex flex-row items-center p-1 bg-green-500 text-white rounded-md">
     <VscCheck className="mr-2" />
@@ -26,17 +27,123 @@ const PillPending = () => (
   </div>
 );
 
+// Modal Component
+const ParticipantDetailsModal = ({
+  participant,
+  onClose,
+  onStatusChange,
+}: {
+  participant: any;
+  onClose: () => void;
+  onStatusChange: (id: number, status: string) => void;
+}) => {
+  if (!participant) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-md w-[90%] lg:w-[600px] shadow-lg">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold">Participant Details</h2>
+          <button onClick={onClose} className="text-red-600">
+            <VscClose size={24} />
+          </button>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div>
+            <strong>Name:</strong> {participant.name}
+          </div>
+          <div>
+            <strong>IC:</strong> {participant.ic}
+          </div>
+          <div>
+            <strong>Ministry:</strong> {participant.ministry}
+          </div>
+          <div>
+            <strong>Department:</strong> {participant.department}
+          </div>
+          <div>
+            <strong>Address:</strong> {participant.address}
+          </div>
+          <div>
+            <strong>Postcode:</strong> {participant.postcode}
+          </div>
+          <div>
+            <strong>Town:</strong> {participant.town}
+          </div>
+          <div>
+            <strong>State:</strong> {participant.state}
+          </div>
+          <div>
+            <strong>Country:</strong> {participant.country}
+          </div>
+          <div>
+            <strong>Email:</strong> {participant.email}
+          </div>
+          <div>
+            <strong>Telephone Number:</strong> {participant.telephoneNumber}
+          </div>
+          <div>
+            <strong>Category:</strong> {participant.category}
+          </div>
+        </div>
+
+        {/* Payment Proof Viewer */}
+        <div className="mb-4">
+          <strong>Payment Proof:</strong>
+          <div className="mt-2">
+            {participant.paymentProof ? (
+              participant.paymentProof.endsWith('.pdf') ? (
+                <embed
+                  src={participant.paymentProof}
+                  type="application/pdf"
+                  className="w-full h-64"
+                  title="Payment Proof PDF"
+                />
+              ) : (
+                <img src={participant.paymentProof} alt="Payment Proof" className="max-w-full h-auto" />
+              )
+            ) : (
+              <p>No payment proof available.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-between">
+          <button
+            onClick={() => onStatusChange(participant.id, 'UnderReview')}
+            className="flex items-center text-sm bg-orange-500 text-white px-3 py-2 rounded-md hover:bg-orange-600"
+          >
+            Under Review
+          </button>
+          <button
+            onClick={() => onStatusChange(participant.id, 'Approved')}
+            className="flex items-center text-sm bg-green-500 text-white px-3 py-2 rounded-md hover:bg-green-600"
+          >
+            Approve
+          </button>
+          <button
+            onClick={() => onStatusChange(participant.id, 'Rejected')}
+            className="flex items-center text-sm bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
+          >
+            Reject
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const AdminPage = () => {
   const router = useRouter();
-  const [participants, setParticipants] = useState<{ id: number; name: string; email: string; category: string; status: string }[]>([]);
+  const [participants, setParticipants] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedParticipant, setSelectedParticipant] = useState<any | null>(null);
 
-  // Filter states for category and status
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
 
-  // Fetch participants when the component mounts
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -59,33 +166,30 @@ const AdminPage = () => {
     fetchParticipants();
   }, [router]);
 
-  // Handle review click
-  const handleReviewClick = (id: number) => {
-    router.push(`/admin/review/${id}`);
+  const handleReviewClick = (participant: any) => {
+    setSelectedParticipant(participant); // Open modal with participant details
   };
 
-  // Handle status toggle
-  const handleToggleStatus = async (id: number, currentStatus: string) => {
-    const newStatus = currentStatus === 'Approved' ? 'UnderReview' : 'Approved';
+  const handleToggleStatus = async (id: number, status: string) => {
     try {
       await fetch(`/api/participants/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ status: newStatus }),
+        body: JSON.stringify({ status }),
       });
       setParticipants((prevParticipants) =>
         prevParticipants.map((participant) =>
-          participant.id === id ? { ...participant, status: newStatus } : participant
+          participant.id === id ? { ...participant, status } : participant
         )
       );
     } catch (err) {
       setError('Failed to update status');
     }
+    setSelectedParticipant(null); // Close modal after status update
   };
 
-  // Filter participants based on selected category and status
   const filteredParticipants = participants.filter((participant) => {
     return (
       (categoryFilter === '' || participant.category === categoryFilter) &&
@@ -98,9 +202,7 @@ const AdminPage = () => {
       <div className="container mx-auto p-8">
         <div className="flex flex-row justify-between items-center mb-6">
           <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
-          <div className="flex flex-row items-center ml-auto">
-            <Logout />
-          </div>
+          <Logout />
         </div>
         {error && <div className="mb-4 text-red-500">{error}</div>}
         {loading ? (
@@ -166,25 +268,25 @@ const AdminPage = () => {
                     </td>
                     <td className="py-2 px-4 border-b flex flex-row items-center">
                       <button
-                        onClick={() => handleReviewClick(participant.id)}
+                        onClick={() => handleReviewClick(participant)}
                         className="mr-2 text-blue-600 flex items-center border border-blue-600 rounded-md px-2 py-1 hover:bg-blue-600 hover:text-white text-sm"
                       >
-                        <VscEye className="mr-2" /> Review
+                        <VscEye className="mr-2" /> View Details
                       </button>
-                      {participant.status === 'UnderReview' && (
-                        <button
-                          onClick={() => handleToggleStatus(participant.id, participant.status)}
-                          className="flex items-center text-sm text-green-600 hover:bg-green-600 hover:text-white border border-green-600 rounded-md px-2 py-1"
-                        >
-                          <VscCheck className="mr-2" />
-                          Approve
-                        </button>
-                      )}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            {/* Modal for Participant Details */}
+            {selectedParticipant && (
+              <ParticipantDetailsModal
+                participant={selectedParticipant}
+                onClose={() => setSelectedParticipant(null)}
+                onStatusChange={handleToggleStatus}
+              />
+            )}
           </div>
         )}
       </div>
