@@ -36,11 +36,12 @@ const Home = () => {
         <div className="flex flex-col items-center justify-center mb-2 gap-10 p-4 w-full  md:flex-row" >
           <div>
             <h1 className={styles.heading2}>
-              BERTEMPAT DI 
+              BERTEMPAT DI <br />
               <span className={styles.headingMadani2}>
                 SETIA CITY CONVENTION CENTER SHAH ALAM, SELANGOR
               </span>
-              PADA
+              <br />
+              PADA 
               <span className={styles.headingMadani2}>
                 26 HINGGA 27 OKTOBER 2024
               </span>
