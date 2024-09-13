@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 import { FaHome } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
@@ -8,7 +9,21 @@ import { TbLogout } from "react-icons/tb";
 import { countries } from "@/lib/data";
 import { getParticipantStats } from "@/lib/data";
 
+import ncosh from "@/lib/images/ncosh.png";
+import osh from "@/lib/images/oshmp25.png";
+import madani from "@/lib/images/madani.png";
+
 import Link from "next/link";
+
+export const LogoGroup = () => {
+    return (
+        <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-green-500 text-white">
+            <Image src={ncosh} alt="ncosh" width={110} height={110} />
+            <Image src={osh} alt="oshmp25" width={110} height={110} />
+            <Image src={madani} alt="madani" width={110} height={110} />
+        </div>
+    );
+};
 
 export const ReturnHome = () => {
     return (

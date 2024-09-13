@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Allison&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -17,6 +19,7 @@
 }
 
 body {margin: 0;
+  font-family: 'Roboto Condensed', sans-serif;
   padding: 0;
   height: 100vh;
   background-color: #ffffff;
@@ -28,6 +31,8 @@ body {margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 0;
 }
 
 @layer utilities {

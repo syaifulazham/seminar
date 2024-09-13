@@ -1,25 +1,19 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 import Image from 'next/image';
-import jata from '@/lib/images/jata.png';
+import jata from '@/lib/images/jatahq.png';
 import kesuma from '@/lib/images/kesuma.png';
 import workers from '@/lib/images/workers.png';
 import { FaEarlybirds } from "react-icons/fa6";
 import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
+import { LogoGroup } from "@/components/Logo";
+import { Navbar } from "@/components/Navbar";
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      {/* Top Logos */}
-      <div className={styles.logoContainer}>
-        <div className={styles.logo}>
-          <Image src={jata} alt="Logo 1" width={110} height={110} />
-        </div>
-        <div className={styles.logo}>
-          <Image src={kesuma} alt="Logo 2" width={80} height={80} />
-        </div>
-      </div>
-
+    
+      <Navbar active="home" />
       {/* Heading */}
       <h1 className={styles.heading}>KARNIVAL KESIHATAN PEKERJAAN </h1>
       <h1 className={styles.headingMadani}>KESUMA MADANI </h1>
