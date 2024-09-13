@@ -40,8 +40,9 @@ const Home = () => {
               <span className={styles.headingMadani2}>
                 SETIA CITY CONVENTION CENTER SHAH ALAM, SELANGOR
               </span>
-              <br />
+              <br /><br />
               PADA 
+              <br />
               <span className={styles.headingMadani2}>
                 26 HINGGA 27 OKTOBER 2024
               </span>
