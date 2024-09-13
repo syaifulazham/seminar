@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import styles from './page.module.css';
 import Image from 'next/image';
 import jata from '@/lib/images/jatahq.png';
@@ -8,7 +9,10 @@ import { FaEarlybirds } from "react-icons/fa6";
 import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
 import { LogoGroup } from "@/components/Logo";
 import { Navbar } from "@/components/Navbar";
-import SimpleMap from '@/components/SimpleMap';
+
+const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
+  ssr: false, // Disable server-side rendering
+});
 
 
 const Home = () => {
@@ -33,13 +37,13 @@ const Home = () => {
           <div>
             <h1 className={styles.heading2}>
               BERTEMPAT DI 
-              <h1 className={styles.headingMadani2}>
+              <span className={styles.headingMadani2}>
                 SETIA CITY CONVENTION CENTER SHAH ALAM, SELANGOR
-              </h1>
+              </span>
               PADA
-              <h1 className={styles.headingMadani2}>
+              <span className={styles.headingMadani2}>
                 26 HINGGA 27 OKTOBER 2024
-              </h1>
+              </span>
             </h1>
           </div>
           <SimpleMap />
@@ -47,8 +51,8 @@ const Home = () => {
         
 
         <div className="flex flex-col items-center justify-center mb-2 gap-10 p-4 w-full border-b border-white border-dashed" style={{ borderRadius: '35px' }}>
-          <h1 className={styles.headingSection}>TAJUK-TAJUK UTAMA PEMBENTANGAN
-            <h4 className='text-sm'>*Semakan jadual tentatif boleh disemak pada pautan <Link href="/tentatives">Tentatif</Link></h4>
+          <h1 className={styles.headingSection}>TAJUK-TAJUK UTAMA PEMBENTANGAN <br />
+            <span className='text-sm'>*Semakan jadual tentatif boleh dibuat pada pautan <Link href="/tentatives" className='border border-white rounded-lg px-2 py-1'>Tentatif</Link></span>
           </h1>
         </div>
 
