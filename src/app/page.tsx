@@ -10,9 +10,9 @@ import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
 import { LogoGroup } from "@/components/Logo";
 import { Navbar } from "@/components/Navbar";
 
-//const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
-//  ssr: false, // Disable server-side rendering
-//});
+const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
+  ssr: false, // Disable server-side rendering
+});
 
 
 const Home = () => {
@@ -46,7 +46,7 @@ const Home = () => {
               </span>
             </h1>
           </div>
-          
+          <SimpleMap />
         </div>
         
 
