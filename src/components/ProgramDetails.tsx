@@ -165,14 +165,14 @@ const HealthEventComponent: FC = () => {
 
       {/* Maklumat Lanjut Section */}
       <div className="bg-gray-200 rounded-lg shadow-lg p-6 mt-12">
-        <h2 className="text-2xl font-semibold flex items-center mb-4">
+        <h2 className="text-2xl font-semibold flex items-center justify-center mb-4 sm:justify-start">
           <FaPhone className="mr-2" /> Maklumat Lanjut
         </h2>
-        <p className="flex items-center mb-2">
+        <p className="flex items-center mb-2 flex-col sm:flex-row">
           <FaPhone className="mr-2" /> {contactInfo.name}: 
           <a href={`tel:${contactInfo.phone}`} className="text-blue-500 ml-2">{contactInfo.phone}</a>
         </p>
-        <p className="flex items-center">
+        <p className="flex items-center flex-col sm:flex-row">
           <FaEnvelope className="mr-2" /> Email: 
           <a href={`mailto:${contactInfo.email}`} className="text-blue-500 ml-2">{contactInfo.email}</a>
         </p>
