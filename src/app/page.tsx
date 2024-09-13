@@ -8,7 +8,7 @@ import { FaEarlybirds } from "react-icons/fa6";
 import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
 import { LogoGroup } from "@/components/Logo";
 import { Navbar } from "@/components/Navbar";
-import GoogleMapView from "@/components/GoogleMapView";
+import SimpleMap from '@/components/SimpleMap';
 
 
 const Home = () => {
@@ -29,7 +29,7 @@ const Home = () => {
           <h1 className={styles.headingSection}>TARIKH & LOKASI</h1>
           
         </div>
-        <div className="flex flex-col items-center justify-center mb-2 gap-10 p-4 w-full border-b border-white border-dashed md:flex-row" style={{ borderRadius: '35px' }}>
+        <div className="flex flex-col items-center justify-center mb-2 gap-10 p-4 w-full  md:flex-row" >
           <div>
             <h1 className={styles.heading2}>
               BERTEMPAT DI 
@@ -42,7 +42,7 @@ const Home = () => {
               </h1>
             </h1>
           </div>
-          <GoogleMapView />
+          <SimpleMap />
         </div>
         
 
