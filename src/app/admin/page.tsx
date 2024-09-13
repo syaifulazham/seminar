@@ -236,6 +236,7 @@ const AdminPage = () => {
                   <option value="Approved">Approved</option>
                   <option value="UnderReview">Under Review</option>
                   <option value="Pending">Pending</option>
+                  <option value="Rejected">Rejected</option>
                 </select>
               </div>
             </div>
