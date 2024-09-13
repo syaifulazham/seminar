@@ -134,7 +134,7 @@ const HealthEventComponent: FC = () => {
     <div className="container mx-auto p-6 text-sm">
       
       {/* Komponen Program Section */}
-      <h2 className="text-2xl font-semibold mb-6 flex items-center justify-center text-white">
+      <h2 className="text-2xl font-semibold mb-6 flex flex-col items-center justify-center text-white sm:flex-row sm:text-center">
         <MdEvent className="mr-2" /> Komponen Utama Program
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -144,7 +144,7 @@ const HealthEventComponent: FC = () => {
       </div>
 
        {/* Bengkel Kesihatan Pekerjaan & Higien Industri Section */}
-       <h2 className="text-2xl font-semibold mb-6 flex items-center justify-center text-white">
+       <h2 className="text-2xl font-semibold mb-6 flex flex-col items-center justify-center text-white sm:flex-row sm:text-center">
         <MdEvent className="mr-2" /> Bengkel Kesihatan Pekerjaan & Higien Industri
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -154,7 +154,7 @@ const HealthEventComponent: FC = () => {
       </div>
 
       {/* Pelbagai Aktiviti Interaktif Section */}
-      <h2 className="text-2xl font-semibold mt-12 mb-6 flex items-center justify-center text-white">
+      <h2 className="text-2xl font-semibold mt-12 mb-6 flex flex-col items-center justify-center text-white sm:flex-row sm:text-center">
         <MdOutlineHealthAndSafety className="mr-2" /> Pelbagai Aktiviti Interaktif
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
