@@ -265,6 +265,26 @@
       width: 100%;
     }
 
+    .heading {
+      font-size: 2rem;
+    }
+
+    .headingMadani {
+      font-size: 2rem;
+    }
+
+    .headingPeringkat {
+      font-size: 1.5rem;
+    }   
+
+    .motto{
+      font-size: 2rem;
+    }
+
+    .schedule_container{
+      padding: 0;
+    }
+
     .subcategories {
       display: flex;
       flex-direction: column;
@@ -273,6 +293,7 @@
     .schedule_wrapper{
       display: flex;
       flex-direction: column;
+      padding: 0;
     }
 
     .schedule > .item {
