@@ -18,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <div className="flex flex-col justify-between items-center w-full p-0 m-0">
         {children}
         <LogoGroup />
+        </div>
       </body>
     </html>
   );
