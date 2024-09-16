@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import jatahq from '@/lib/images/jatahq.png';
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -40,8 +42,9 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 min-w-[1000px] max-w-[1000px]">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+        <Image src={jatahq} alt="JataHQ" className="w-auto h-24 mb-6 mx-auto" />
         <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleLogin} className="space-y-4">
