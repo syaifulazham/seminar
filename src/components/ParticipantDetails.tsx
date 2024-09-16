@@ -15,7 +15,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
   if (!participant) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 text-sm">
       <div className="bg-white p-6 rounded-md w-[90%] lg:w-[600px] shadow-lg">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Participant Details</h2>
@@ -38,20 +38,9 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
             <strong>Department:</strong> {participant.department}
           </div>
           <div>
-            <strong>Address:</strong> {participant.address}
+            <strong>Address:</strong><br /> {participant.address}, {participant.postcode} {participant.town}, {participant.state}, {participant.country}
           </div>
-          <div>
-            <strong>Postcode:</strong> {participant.postcode}
-          </div>
-          <div>
-            <strong>Town:</strong> {participant.town}
-          </div>
-          <div>
-            <strong>State:</strong> {participant.state}
-          </div>
-          <div>
-            <strong>Country:</strong> {participant.country}
-          </div>
+          
           <div>
             <strong>Email:</strong> {participant.email}
           </div>
@@ -79,7 +68,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                 <Image
                   src={participant.paymentProof}
                   alt="Payment Proof"
-                  className="max-w-full h-auto"
+                  height={300}
                 />
               )
             ) : (
