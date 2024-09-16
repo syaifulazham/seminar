@@ -55,7 +55,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
         {/* Payment Proof Viewer */}
         <div className="mb-4">
           <strong>Payment Proof:</strong>
-          <div className="mt-2">
+          <div className="mt-2 max-h-[300px] w-full overflow-auto">
             {participant.paymentProof ? (
               participant.paymentProof.endsWith('.pdf') ? (
                 <embed
