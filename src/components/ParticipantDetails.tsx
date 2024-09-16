@@ -1,4 +1,5 @@
 import { VscClose } from 'react-icons/vsc';
+import Image from 'next/image';
 
 interface ParticipantDetailsModalProps {
   participant: any;
@@ -75,7 +76,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                   title="Payment Proof PDF"
                 />
               ) : (
-                <img
+                <Image
                   src={participant.paymentProof}
                   alt="Payment Proof"
                   className="max-w-full h-auto"
