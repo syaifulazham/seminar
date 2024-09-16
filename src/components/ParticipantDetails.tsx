@@ -68,6 +68,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                 <Image
                   src={participant.paymentProof}
                   alt="Payment Proof"
+                  className="max-h-[300px] w-auto"
                   height={300}
                 />
               )
