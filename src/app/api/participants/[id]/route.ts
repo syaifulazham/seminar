@@ -35,6 +35,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       throw new Error('Participant not found');
     }
 
+    /*
     const newReceipt = await prisma.receipt.create({
       data: {
         invoice: `IKARKP24-${participant.id.toString().padStart(6, '0')}`,
@@ -43,6 +44,26 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
         bank: '-',
       },
     });
+    */
+    const invoiceNumber = `IKARKP24-${participant.id.toString().padStart(6, '0')}`;
+
+    const newReceipt = await prisma.receipt.upsert({
+      where: {
+        invoice: invoiceNumber,
+      },
+      update: {
+        item: participant.category,
+        amount: GetPrices[participant.category as keyof typeof GetPrices],
+        bank: '-', // You can modify this field if necessary
+      },
+      create: {
+        invoice: invoiceNumber,
+        item: participant.category,
+        amount: GetPrices[participant.category as keyof typeof GetPrices],
+        bank: '-', // Default bank value
+      },
+    });
+
 
     // Ensure participant is not null before sending email
     if (updatedParticipant && status.toLowerCase() === 'approved') {
