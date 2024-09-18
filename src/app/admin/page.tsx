@@ -29,7 +29,7 @@ const AdminPage = () => {
 
     const fetchParticipants = async () => {
       try {
-        const res = await fetch('/api/participants', {
+        const res = await fetch(`/api/participants?timestamp=${new Date().getTime()}`, {
           headers: {
             'Cache-Control': 'no-cache', // Force fresh data from the server
           },

@@ -49,11 +49,14 @@ export async function GET() {
   try {
     const participants = await prisma.participant.findMany();
 
-    // Disable caching
-    const response = NextResponse.json(participants);
-    response.headers.set('Cache-Control', 'no-store, max-age=0');
-
-    return response;
+    // Disable caching by setting the appropriate headers directly
+    return NextResponse.json(participants, {
+      headers: {
+        'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+        'Pragma': 'no-cache', // Ensures compatibility with HTTP/1.0 caches
+        'Expires': '0',       // Forces caches to treat the response as expired immediately
+      },
+    });
   } catch (error) {
     return NextResponse.json(
       { message: 'Failed to load participants' },
