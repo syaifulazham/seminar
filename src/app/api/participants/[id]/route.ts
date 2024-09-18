@@ -15,6 +15,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
         'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
         'Pragma': 'no-cache', // Ensures compatibility with HTTP/1.0 caches
         'Expires': '0',       // Forces caches to treat the response as expired immediately
+        'Surrogate-Control': 'no-store', // Disable CDN or intermediary caching
       },
     });
   } catch (error) {
