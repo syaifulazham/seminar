@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import prisma from '@/lib/prisma';
 import { sendApprovalEmail } from '@/lib/email';
 
+export const dynamic = 'force-dynamic';
+
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     // Parse and validate the ID parameter
