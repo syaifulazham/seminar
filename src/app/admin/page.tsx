@@ -29,7 +29,11 @@ const AdminPage = () => {
 
     const fetchParticipants = async () => {
       try {
-        const res = await fetch('/api/participants');
+        const res = await fetch('/api/participants', {
+          headers: {
+            'Cache-Control': 'no-cache', // Force fresh data from the server
+          },
+        });
         const data = await res.json();
         setParticipants(data);
       } catch (err) {
@@ -149,7 +153,8 @@ const AdminPage = () => {
             </div>
 
             {/* Records Per Page Selector */}
-            <div className="flex justify-end mb-4">
+            <div className="flex flex-row items-center justify-end mb-4">
+              <span className="mr-2">Records per page: </span>
               <select
                 value={recordsPerPage}
                 onChange={(e) => setRecordsPerPage(Number(e.target.value))}
@@ -161,6 +166,7 @@ const AdminPage = () => {
                 <option value={100}>100</option>
                 <option value={200}>200</option>
               </select>
+              
             </div>
 
             {/* Participants table */}
