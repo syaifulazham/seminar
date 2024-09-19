@@ -33,7 +33,28 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
           <div>
             <strong>Name:</strong> {participant.name}
           </div>
-          {/* Other fields */}
+          <div>
+            <strong>IC:</strong> {participant.ic}
+          </div>
+          <div>
+            <strong>Ministry:</strong> {participant.ministry}
+          </div>
+          <div>
+            <strong>Department:</strong> {participant.department}
+          </div>
+          <div>
+            <strong>Address:</strong><br /> {participant.address}, {participant.postcode} {participant.town}, {participant.state}, {participant.country}
+          </div>
+          
+          <div>
+            <strong>Email:</strong> {participant.email}
+          </div>
+          <div>
+            <strong>Telephone Number:</strong> {participant.telephoneNumber}
+          </div>
+          <div>
+            <strong>Category:</strong> {participant.category}
+          </div>
         </div>
 
         {/* Payment Proof Viewer */}
