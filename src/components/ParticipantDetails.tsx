@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';  // Forces dynamic rendering
+
 import { VscClose } from 'react-icons/vsc';
 import Image from 'next/image';
 
@@ -14,9 +16,12 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
 }) => {
   if (!participant) return null;
 
+  const cacheBustedUrl = (url: string) => `${url}?t=${new Date().getTime()}`;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 text-sm">
       <div className="bg-white p-6 rounded-md w-[90%] lg:w-[600px] shadow-lg">
+        {/* Modal content */}
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Participant Details</h2>
           <button onClick={onClose} className="text-red-600">
@@ -28,28 +33,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
           <div>
             <strong>Name:</strong> {participant.name}
           </div>
-          <div>
-            <strong>IC:</strong> {participant.ic}
-          </div>
-          <div>
-            <strong>Ministry:</strong> {participant.ministry}
-          </div>
-          <div>
-            <strong>Department:</strong> {participant.department}
-          </div>
-          <div>
-            <strong>Address:</strong><br /> {participant.address}, {participant.postcode} {participant.town}, {participant.state}, {participant.country}
-          </div>
-          
-          <div>
-            <strong>Email:</strong> {participant.email}
-          </div>
-          <div>
-            <strong>Telephone Number:</strong> {participant.telephoneNumber}
-          </div>
-          <div>
-            <strong>Category:</strong> {participant.category}
-          </div>
+          {/* Other fields */}
         </div>
 
         {/* Payment Proof Viewer */}
@@ -66,8 +50,12 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                 />
               ) : (
                 <Image
-                  src={participant.paymentProof}
+                  src={cacheBustedUrl(participant.paymentProof)}
                   alt="Payment Proof"
+                  width={500}
+                  height={500}
+                  layout="responsive"
+                  objectFit="contain"
                 />
               )
             ) : (
@@ -76,7 +64,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Action buttons */}
         <div className="flex justify-between">
           <button
             onClick={() => onStatusChange(participant.id, 'UnderReview')}
