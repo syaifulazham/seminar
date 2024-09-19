@@ -16,3 +16,14 @@ export const LogoGroup = () => {
         </div>
     );
 };
+
+export const LogoPanel = () => {
+    return (
+        <div className="flex flex-row items-center justify-center py-4 text-white gap-6 bg-white w-full" style={{ borderRadius: '35px' }}>
+            <Image src={jkkpwpkl} alt="jkkp-wpkl"  height={45} />
+            <Image src={osh} alt="oshmp25"  height={65} />
+            <Image src={ncosh} alt="ncosh" height={55} />
+            <Image src={madani} alt="madani" height={45} />
+        </div>
+    );
+}

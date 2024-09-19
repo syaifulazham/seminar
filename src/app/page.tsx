@@ -7,7 +7,7 @@ import kesuma from '@/lib/images/kesuma.png';
 import workers from '@/lib/images/workers.png';
 import { FaEarlybirds } from "react-icons/fa6";
 import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
-import { LogoGroup } from "@/components/Logo";
+import { LogoPanel } from "@/components/Logo";
 import { Navbar } from "@/components/Navbar";
 
 const SimpleMap = dynamic(() => import('../components/SimpleMap'), {
@@ -28,7 +28,10 @@ const Home = () => {
 
       <div className={styles.schedule_container}>
         <Image src={workers} alt="Logo 1" width={500} />
-
+        
+        {/* <LogoGroup /> */}
+        <LogoPanel />
+        
         <div className="flex flex-col items-center justify-center mb-2 gap-10 p-4 w-full border-b border-white border-dashed" style={{ borderRadius: '35px' }}>
           <h1 className={styles.headingSection}>TARIKH & LOKASI</h1>
           
