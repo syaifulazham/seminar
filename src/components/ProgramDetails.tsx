@@ -148,7 +148,7 @@ const Card: FC<{ title: string; description: string; Icon: any; wid: string; reg
     <p>{description}</p>
     <div className="flex flex-col justify-center gap-2 text-center">
     {wid && <Link href={`/workshop/${wid}`} className="text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">Lihat Selengkapnya</Link>}
-    {registration && <Link href={registration} className="text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">Daftar</Link>}
+    {registration && <Link target="_blank" href={registration} className="text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">Daftar</Link>}
     </div>
     
   </div>
