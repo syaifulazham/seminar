@@ -29,18 +29,21 @@ const programItems = [
     description: "Bengkel Pertolongan Cemas Pekerjaan bersama Industri",
     icon: FaMedkit,
     wid: "firstaid",
+    registration: "https://docs.google.com/forms/d/e/1FAIpQLSdSyHCxiuHLAbCMXcVlJJn8BN6SoD-znID0VNvM45WegcB0qg/viewform",
   },
   {
     title: "Bengkel Guidelines Occupational Noise Disorder",
     description: "Panduan untuk Masalah Pendengaran Berkaitan Bunyi",
     icon: FaClipboardList,
     wid: "noiserelated",
+    registration: "",
   },
   {
     title: "Bengkel Guidelines on Medical Surveillance Programme at Workplace",
     description: "Panduan untuk Program Pemantauan Perubatan di Tempat Kerja 2023",
     icon: FaClipboardList,
     wid: "medicalsurveillance",
+    registration: "https://docs.google.com/forms/d/e/1FAIpQLScOtUCU7zZsvR1N256Xz2jVDZyeZUiTUqiFxuDLT6iNsopr8A/viewform",
   },
   {
 
@@ -48,6 +51,7 @@ const programItems = [
     description: "Panduan Spirometry untuk Pengamal Kesihatan Pekerjaan 2024",
     icon: FaStethoscope,
     wid: "spirometry",
+    registration: "https://docs.google.com/forms/d/e/1FAIpQLSfPTrw36No9Mh235ByQnRh0Xnoxsi1iKq1gFHOrkBWMaQX34g/viewform",
   },
   {
 
@@ -55,6 +59,7 @@ const programItems = [
     description: "Amalan terbaik bagi pelaksanaan program kesejahteraan di tempat kerja",
     icon: FaHeartbeat,
     wid: "",
+    registration: "",
   },
   {
     title: "Bengkel Pemantapan Pusat Ujian Audiometrik",
@@ -62,6 +67,7 @@ const programItems = [
     description: "Pemantapan pelaksanaan pusat ujian audiometrik",
     icon: FaUserMd,
     wid: "",
+    registration: "",
   },
   {
 
@@ -69,6 +75,7 @@ const programItems = [
     description: "Perkembangan Terkini Berkaitan Daftar Kimia (Chemical Register) Format Baru Di Bawah Pindaan USECHH 202X",
     icon: FaClipboardList,
     wid: "",
+    registration: "",
   }
 ];
 
@@ -133,13 +140,17 @@ const MainCard: FC<{ title: string; description: string; Icon: any }> = ({ title
   </div>
 );
 
-const Card: FC<{ title: string; description: string; Icon: any; wid: string }> = ({ title, description, Icon, wid }) => (
+const Card: FC<{ title: string; description: string; Icon: any; wid: string; registration: string }> = ({ title, description, Icon, wid, registration }) => (
   <div className="bg-white shadow-lg rounded-lg p-6 m-4 flex flex-col items-center text-center">
     <Icon className="text-4xl text-blue-600 mb-4" />
 
     <h3 className="text-xl font-bold mb-2">{title}</h3>
     <p>{description}</p>
+    <div className="flex flex-col justify-center gap-2 text-center">
     {wid && <Link href={`/workshop/${wid}`} className="text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">Lihat Selengkapnya</Link>}
+    {registration && <Link href={registration} className="text-blue-500 border border-blue-500 rounded-md px-4 py-2 hover:bg-blue-500 hover:text-white">Daftar</Link>}
+    </div>
+    
   </div>
 );
 
@@ -165,7 +176,7 @@ const HealthEventComponent: FC = () => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {programItems.map((item, index) => (
-          <Card key={index} title={item.title} description={item.description} Icon={item.icon} wid={item.wid} />
+          <Card key={index} title={item.title} description={item.description} Icon={item.icon} wid={item.wid} registration={item.registration} />
         ))}
       </div>
 
@@ -175,7 +186,7 @@ const HealthEventComponent: FC = () => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {interactiveItems.map((item, index) => (
-          <Card key={index} title={item.title} description={item.description} Icon={item.icon} wid="" />
+          <Card key={index} title={item.title} description={item.description} Icon={item.icon} wid="" registration="" />
         ))}
       </div>
 
