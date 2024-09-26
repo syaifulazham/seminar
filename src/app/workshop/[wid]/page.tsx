@@ -18,7 +18,7 @@ const theworkshops = {
     },
     "noiserelated": {
         "title": "Guidelines on Management of Occupational Noise-Related Hearing Disorders (ONRHD)",
-        "posters": "/posters/noise-related.pdf"
+        "posters": "/posters/noise-related-v2.pdf"
     },
 
 }

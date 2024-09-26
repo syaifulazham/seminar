@@ -36,11 +36,11 @@ const programItems = [
     description: "Panduan untuk Masalah Pendengaran Berkaitan Bunyi",
     icon: FaClipboardList,
     wid: "noiserelated",
-    registration: "",
+    registration: "https://forms.gle/mHAncK3XTHKP7rgN7",
   },
   {
     title: "Bengkel Guidelines on Medical Surveillance Programme at Workplace",
-    description: "Panduan untuk Program Pemantauan Perubatan di Tempat Kerja 2023",
+    description: "Panduan untuk Program Pemantauan Perubatan di Tempat Kerja",
     icon: FaClipboardList,
     wid: "medicalsurveillance",
     registration: "https://docs.google.com/forms/d/e/1FAIpQLScOtUCU7zZsvR1N256Xz2jVDZyeZUiTUqiFxuDLT6iNsopr8A/viewform",
