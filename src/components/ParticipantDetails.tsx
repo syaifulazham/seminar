@@ -17,6 +17,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
   if (!participant) return null;
 
   const cacheBustedUrl = (url: string) => `${url}?t=${new Date().getTime()}`;
+  const fileName = participant.paymentProof ? participant.paymentProof.replace('/uploads/', '') : null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 text-sm">
@@ -64,14 +65,14 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
             {participant.paymentProof ? (
               participant.paymentProof.endsWith('.pdf') ? (
                 <embed
-                  src={participant.paymentProof}
+                  src={`/api/files/${encodeURIComponent(fileName)}`}
                   type="application/pdf"
                   className="w-full h-64"
                   title="Payment Proof PDF"
                 />
               ) : (
                 <Image
-                  src={cacheBustedUrl(participant.paymentProof)}
+                  src={`/api/files/${encodeURIComponent(fileName)}`}
                   alt="Payment Proof"
                   width={500}
                   height={500}

@@ -5,11 +5,9 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { sendAcknowledgmentEmail } from '@/lib/email';
 
-
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     // Parse the form data
-    const crypto = require('crypto');
     const formData = await req.formData();
     const file = formData.get('paymentProof') as File | null;
 
@@ -20,19 +18,26 @@ export async function POST(req: NextRequest, { params }: { params: { id: string 
     // Create a unique filename and save the file to the file system
     const fileExtension = path.extname(file.name);
     const fileName = `${uuidv4()}${fileExtension}`;
-    const filePath = path.join(process.cwd(), 'public/uploads', fileName);
+    const uploadDir = path.join(process.cwd(), 'uploads');
+    
+    // Ensure the uploads directory exists
+    await fs.mkdir(uploadDir, { recursive: true });
+    
+    const filePath = path.join(uploadDir, fileName);
 
     const fileBuffer = await file.arrayBuffer();
     await fs.writeFile(filePath, Buffer.from(fileBuffer));
-// Update the participant's record in the database
+
+    // Update the participant's record in the database
     const participant = await prisma.participant.update({
       where: { hashid: params.id },
       data: {
-        paymentProof: `/uploads/${fileName}`,
+        paymentProof: `/uploads/${fileName}`,  // Store file path relative to uploads directory
         status: 'UnderReview',
       },
     });
 
+    // Send acknowledgment email
     await sendAcknowledgmentEmail(participant.email);
 
     return NextResponse.json({ message: 'Payment proof uploaded successfully', participant });
