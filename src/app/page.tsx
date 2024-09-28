@@ -4,7 +4,8 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import jata from '@/lib/images/jatahq.png';
 import kesuma from '@/lib/images/kesuma.png';
-import workers from '@/lib/images/workers.png';
+import karnival from '@/lib/images/karnival.png';
+import workers from '@/lib/images/workers-v4.png';
 import { FaEarlybirds } from "react-icons/fa6";
 import { AiFillSchedule, AiFillVideoCamera } from "react-icons/ai";
 import { LogoPanel } from "@/components/Logo";
@@ -21,14 +22,16 @@ const Home = () => {
 
       <Navbar active="home" />
       {/* Heading */}
+      {/*
       <h1 className={styles.heading}>KARNIVAL KESIHATAN PEKERJAAN </h1>
       <h1 className={styles.headingMadani}>KESUMA MADANI </h1>
       <h1 className={styles.headingPeringkat}>PERINGKAT KEBANGSAAN 2024</h1>
       <h1 className={styles.motto}>Pekerja Sihat, Minda Sejahtera</h1>
+      */}
 
       <div className={styles.schedule_container}>
-        <Image src={workers} alt="Logo 1" width={500} />
-        
+        <Image src={karnival} alt="Logo 1" width={500} />
+        <Image src={workers} alt="Logo 1" width={700} />
         {/* <LogoGroup /> */}
         <LogoPanel />
         
