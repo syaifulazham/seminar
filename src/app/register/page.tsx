@@ -95,7 +95,7 @@ const RegisterPage = () => {
       });
 
       if (!res.ok) {
-        throw new Error('Failed to register');
+        throw new Error('Failed to register. Please use a different email address for a different participant.');
       }
 
       router.push('/thank-you');
