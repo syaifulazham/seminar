@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';  // Import your prisma instance
+export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 
 export async function GET() {
     // Get total participants

@@ -1,5 +1,5 @@
 'use client';
-
+export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 import { useEffect, useState } from 'react';
 import { ReturnHome, Logout } from '@/components/useful';
 import { Bar, Line, Pie } from 'react-chartjs-2';  // Using chart.js for graphs
