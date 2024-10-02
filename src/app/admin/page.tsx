@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { VscPreview, VscCheck, VscPass, VscEye, VscClose } from 'react-icons/vsc';
 import { Logout, GoStats } from '@/components/useful';
-import { PillApproved, PillUnderReview, PillPending } from '@/components/Pills';
+import { PillApproved, PillUnderReview, PillPending, PillRejected } from '@/components/Pills';
 import ParticipantDetailsModal from '@/components/ParticipantDetails';
 
 const AdminPage = () => {
@@ -194,6 +194,8 @@ const AdminPage = () => {
                         <PillApproved />
                       ) : participant.status === 'UnderReview' ? (
                         <PillUnderReview />
+                      ) : participant.status === 'Rejected' ? (
+                        <PillRejected />
                       ) : (
                         <PillPending />
                       )}
