@@ -1,7 +1,7 @@
-export const dynamic = 'force-dynamic';  // Forces dynamic rendering
-
 import { VscClose } from 'react-icons/vsc';
 import Image from 'next/image';
+import { MdOutlineAttachEmail } from "react-icons/md";
+import { useState } from 'react'; // Import useState
 
 interface ParticipantDetailsModalProps {
   participant: any;
@@ -15,6 +15,8 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
   onStatusChange,
 }) => {
   if (!participant) return null;
+
+  const [isSending, setIsSending] = useState(false); // State to manage loading status
 
   const cacheBustedUrl = (url: string) => `${url}?t=${new Date().getTime()}`;
   const fileName = participant.paymentProof ? participant.paymentProof.replace('/uploads/', '') : null;
@@ -46,9 +48,46 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
           <div>
             <strong>Address:</strong><br /> {participant.address}, {participant.postcode} {participant.town}, {participant.state}, {participant.country}
           </div>
-          
+
           <div>
             <strong>Email:</strong> {participant.email}
+            {/* New Resend Invoice button */}
+            <button
+              onClick={async () => {
+                setIsSending(true); // Set loading state to true
+                try {
+                  const response = await fetch('/api/resendinvoice', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      participantId: participant.id,
+                      email: participant.email,
+                    }),
+                  });
+
+                  if (response.ok) {
+                    alert('Invoice resent successfully!');
+                  } else {
+                    alert('Failed to resend invoice.');
+                  }
+                } catch (error) {
+                  alert('An error occurred while sending the invoice.');
+                } finally {
+                  setIsSending(false); // Reset loading state
+                }
+              }}
+              className={`flex gap-2 items-center text-sm px-3 py-2 rounded-md ${
+                isSending
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-500 text-white hover:bg-blue-600'
+              }`}
+              disabled={isSending} // Disable the button while sending
+            >
+              <MdOutlineAttachEmail size={16} />
+              {isSending ? 'Sending...' : 'Resend Invoice'} {/* Show "Sending..." while sending */}
+            </button>
           </div>
           <div>
             <strong>Telephone Number:</strong> {participant.telephoneNumber}
@@ -88,6 +127,7 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
 
         {/* Action buttons */}
         <div className="flex justify-between">
+          {/* Existing buttons */}
           <button
             onClick={() => onStatusChange(participant.id, 'UnderReview')}
             className="flex items-center text-sm bg-orange-500 text-white px-3 py-2 rounded-md hover:bg-orange-600"
