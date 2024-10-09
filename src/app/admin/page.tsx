@@ -241,7 +241,7 @@ const AdminPage = () => {
                         onClick={() => handleReviewClick(participant)}
                         className="mr-2 text-blue-600 flex items-center border border-blue-600 rounded-md px-2 py-1 hover:bg-blue-600 hover:text-white text-sm"
                       >
-                        <VscEye className="mr-2" /> View Details
+                        <VscEye className="mr-2" /> View
                       </button>
                     </td>
                   </tr>
