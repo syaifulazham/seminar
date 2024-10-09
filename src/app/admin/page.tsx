@@ -137,7 +137,13 @@ const AdminPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 min-w-[1000px] max-w-[1000px]">
-      {/* Header, Filters, and Table */}
+      <div className="flex flex-row justify-between items-center w-full p-6 bg-white shadow">
+        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+        <div className="flex flex-row space-x-4 ml-auto">
+          <GoStats />
+          <Logout />
+        </div>
+      </div>
       <div className="container mx-auto p-6">
         {error && <div className="mb-4 text-red-500">{error}</div>}
         {loading ? (
