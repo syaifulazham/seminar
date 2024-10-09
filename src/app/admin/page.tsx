@@ -1,9 +1,8 @@
 'use client';
-export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { VscPreview, VscCheck, VscPass, VscEye, VscClose } from 'react-icons/vsc';
+import { VscEye } from 'react-icons/vsc';
 import { Logout, GoStats } from '@/components/useful';
 import { PillApproved, PillUnderReview, PillPending, PillRejected } from '@/components/Pills';
 import ParticipantDetailsModal from '@/components/ParticipantDetails';
@@ -17,9 +16,9 @@ const AdminPage = () => {
 
   const [categoryFilter, setCategoryFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [searchTerm, setSearchTerm] = useState(''); // Search term for wildcard search
-  const [currentPage, setCurrentPage] = useState(1); // Current page
-  const [recordsPerPage, setRecordsPerPage] = useState(10); // Records per page
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recordsPerPage, setRecordsPerPage] = useState(10);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -32,7 +31,7 @@ const AdminPage = () => {
       try {
         const res = await fetch(`/api/participants?timestamp=${new Date().getTime()}`, {
           headers: {
-            'Cache-Control': 'no-cache', // Force fresh data from the server
+            'Cache-Control': 'no-cache',
           },
         });
         const data = await res.json();
@@ -48,7 +47,7 @@ const AdminPage = () => {
   }, [router]);
 
   const handleReviewClick = (participant: any) => {
-    setSelectedParticipant(participant); // Open modal with participant details
+    setSelectedParticipant(participant);
   };
 
   const handleToggleStatus = async (id: number, status: string) => {
@@ -68,28 +67,24 @@ const AdminPage = () => {
     } catch (err) {
       setError('Failed to update status');
     }
-    setSelectedParticipant(null); // Close modal after status update
+    setSelectedParticipant(null);
   };
 
-  // Search and filter participants
-  const filteredParticipants = participants
-    .filter((participant) => {
-      const searchFilter = searchTerm.toLowerCase();
-      return (
-        (categoryFilter === '' || participant.category === categoryFilter) &&
-        (statusFilter === '' || participant.status === statusFilter) &&
-        // Wildcard search for name, email, etc.
-        (
-          participant.id.toString().padStart(6, '0').includes(searchFilter) ||
-          participant.name.toLowerCase().includes(searchFilter) ||
-          participant.email.toLowerCase().includes(searchFilter) ||
-          participant.ic.toLowerCase().includes(searchFilter) ||
-          participant.ministry.toLowerCase().includes(searchFilter)
-        )
-      );
-    });
+  const filteredParticipants = participants.filter((participant) => {
+    const searchFilter = searchTerm.toLowerCase();
+    return (
+      (categoryFilter === '' || participant.category === categoryFilter) &&
+      (statusFilter === '' || participant.status === statusFilter) &&
+      (
+        participant.id.toString().padStart(6, '0').includes(searchFilter) ||
+        participant.name.toLowerCase().includes(searchFilter) ||
+        participant.email.toLowerCase().includes(searchFilter) ||
+        participant.ic.toLowerCase().includes(searchFilter) ||
+        participant.ministry.toLowerCase().includes(searchFilter)
+      )
+    );
+  });
 
-  // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentRecords = filteredParticipants.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -97,18 +92,53 @@ const AdminPage = () => {
 
   const handlePageChange = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // Helper function to display limited pagination buttons with ellipsis
+  const renderPaginationButtons = () => {
+    const maxPagesToShow = 5;
+    let pages = [];
+
+    // Create pagination buttons with ellipsis for large page counts
+    if (totalPages <= maxPagesToShow) {
+      pages = Array.from({ length: totalPages }, (_, index) => index + 1);
+    } else {
+      const startPage = Math.max(1, currentPage - 2);
+      const endPage = Math.min(totalPages, currentPage + 2);
+
+      pages = Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+
+      // Add ellipsis if there are more pages to show
+      if (startPage > 1) {
+        pages = [1, '...', ...pages];
+      }
+      if (endPage < totalPages) {
+        pages = [...pages, '...', totalPages];
+      }
+    }
+
+    return pages.map((page, index) => {
+      if (typeof page === 'string') {
+        return (
+          <span key={index} className="px-3 py-1">
+            {page}
+          </span>
+        );
+      }
+      return (
+        <button
+          key={index}
+          onClick={() => handlePageChange(page)}
+          className={`px-3 py-1 rounded-md ${page === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+        >
+          {page}
+        </button>
+      );
+    });
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 min-w-[1000px] max-w-[1000px]">
-      <div className="flex flex-row justify-between items-center w-full p-6 bg-white shadow">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <div className="flex flex-row space-x-4 ml-auto">
-          <GoStats />
-          <Logout />
-        </div>
-      </div>
+      {/* Header, Filters, and Table */}
       <div className="container mx-auto p-6">
-        {/* Header */}
-
         {error && <div className="mb-4 text-red-500">{error}</div>}
         {loading ? (
           <p>Loading participants...</p>
@@ -219,19 +249,11 @@ const AdminPage = () => {
                 Page {currentPage} of {totalPages}
               </span>
               <div className="flex space-x-2">
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handlePageChange(index + 1)}
-                    className={`px-3 py-1 rounded-md ${index + 1 === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-                  >
-                    {index + 1}
-                  </button>
-                ))}
+                {renderPaginationButtons()}
               </div>
             </div>
 
-            {/* Modal for Participant Details */}
+            {/* Participant Details Modal */}
             {selectedParticipant && (
               <ParticipantDetailsModal
                 participant={selectedParticipant}
