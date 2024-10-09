@@ -14,9 +14,11 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
   onClose,
   onStatusChange,
 }) => {
-  if (!participant) return null;
-
+  // useState should be called outside the condition
   const [isSending, setIsSending] = useState(false); // State to manage loading status
+
+  // Early return if participant is null
+  if (!participant) return null;
 
   const cacheBustedUrl = (url: string) => `${url}?t=${new Date().getTime()}`;
   const fileName = participant.paymentProof ? participant.paymentProof.replace('/uploads/', '') : null;
