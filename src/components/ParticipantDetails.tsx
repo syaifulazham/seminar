@@ -2,6 +2,7 @@ import { VscClose } from 'react-icons/vsc';
 import Image from 'next/image';
 import { MdOutlineAttachEmail } from "react-icons/md";
 import { useState } from 'react'; // Import useState
+import Link from 'next/link';
 
 interface ParticipantDetailsModalProps {
   participant: any;
@@ -122,7 +123,9 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                 />
               )
             ) : (
-              <p>No payment proof available.</p>
+              <p>No payment proof available.
+              <Link href={`/upload/${participant.hashid}`} className="text-blue-500">Goto Upload Payment Proof</Link>
+              </p>
             )}
           </div>
         </div>
