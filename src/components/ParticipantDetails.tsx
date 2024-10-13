@@ -123,9 +123,10 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
                 />
               )
             ) : (
-              <p>No payment proof available.
-              <Link href={`/upload/${participant.hashid}`} className="text-blue-500">Goto Upload Payment Proof</Link>
-              </p>
+              <>
+                <p>No payment proof available.</p><br />
+                <a href={`/upload/${participant.hashid}`} target="_blank" rel="noopener noreferrer" className="text-blue-500">Goto Upload Payment Proof...</a>
+              </>
             )}
           </div>
         </div>

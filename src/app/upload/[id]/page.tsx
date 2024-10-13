@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-
+import { Participant } from '@prisma/client';
 const UploadPage = () => {
   const router = useRouter();
   const params = useParams(); // Use useParams to get the dynamic route parameter
@@ -10,6 +10,18 @@ const UploadPage = () => {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const loadParticipant = async () => {
+    const res = await fetch(`/api/participants/hash/${id}`);
+    const data = await res.json();
+    setParticipant(data);
+  };
+
+  const [participant, setParticipant] = useState<Participant | null>(null);
+
+  useEffect(() => {
+    loadParticipant();
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.target.files![0]);
@@ -54,8 +66,10 @@ const UploadPage = () => {
       {error && <div className="mb-4 text-red-500">{error}</div>}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
+          <h3>Invoice Number: <span className="font-bold">IKARKP24-{participant?.id.toString().padStart(6, '0')}</span></h3>
           <label htmlFor="file" className="block text-sm font-medium text-gray-700">
             Payment Proof (Image or PDF)
+
           </label>
           <input
             type="file"
