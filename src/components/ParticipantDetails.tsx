@@ -43,10 +43,10 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
             <strong>IC:</strong> {participant.ic}
           </div>
           <div>
-            <strong>Ministry:</strong> {participant.ministry}
+            <strong>Organisation:</strong> {participant.ministry}
           </div>
           <div>
-            <strong>Department:</strong> {participant.department}
+            <strong>Department/ Company:</strong> {participant.department}
           </div>
           <div>
             <strong>Address:</strong><br /> {participant.address}, {participant.postcode} {participant.town}, {participant.state}, {participant.country}
