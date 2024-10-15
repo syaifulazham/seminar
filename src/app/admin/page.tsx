@@ -236,7 +236,7 @@ const AdminPage = () => {
                         <PillPending />
                       )}
                     </td>
-                    <td className="py-2 px-4 border-b flex flex-row items-center">
+                    <td className="py-2 px-4 border-b">
                       <button
                         onClick={() => handleReviewClick(participant)}
                         className="mr-2 text-blue-600 flex items-center border border-blue-600 rounded-md px-2 py-1 hover:bg-blue-600 hover:text-white text-sm"
