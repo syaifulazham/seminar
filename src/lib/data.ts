@@ -20,12 +20,19 @@ export async function getParticipantStats() {
     return { statusCount, categoryCount, totalParticipants };
 }
 
-
+/*
 export const GetPrices = {
     "With HRDC - Physical": 650,
     "With HRDC - Online": 650,
     "Without HRDC - Physical": 500,
     "Without HRDC - Online": 500
+}
+*/
+export const GetPrices = {
+    "With HRDC - Physical": 800,
+    "With HRDC - Online": 800,
+    "Without HRDC - Physical": 650,
+    "Without HRDC - Online": 650
 }
 
 

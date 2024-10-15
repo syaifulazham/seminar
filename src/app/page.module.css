@@ -254,6 +254,10 @@
     border-radius: 50%;
   }
 
+  .early_bird_end{
+    text-decoration: line-through;
+  }
+
   .normal_price_container {
     display: flex;
     flex-direction: column;
@@ -263,6 +267,7 @@
     background-color: #4b4b4b;
     color: #fff;
     border-radius: 20px;
+    text-decoration: none;
   }
 
   .price {

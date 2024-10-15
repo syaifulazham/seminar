@@ -107,7 +107,7 @@ const Home = () => {
 
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
-                Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 15 Oktober 2024
+                Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM650</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM800</span>
               </div>
               <Link href="/register?type=physical&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -120,7 +120,7 @@ const Home = () => {
 
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
-                Harga Early Bird!! <span className={styles.price}>RM650</span> Sehingga 15 Oktober 2024
+                Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM650</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM800</span>
               </div>
               <Link href="/register?type=online&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -139,7 +139,7 @@ const Home = () => {
 
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
-                Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 15 Oktober 2024
+                Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM500</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM650</span>
               </div>
               <Link href="/register?type=physical&category=withoutHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -152,7 +152,7 @@ const Home = () => {
 
               <div className={styles.early_bird_container}>
                 <FaEarlybirds className="text-4xl" />
-                Harga Early Bird!! <span className={styles.price}>RM500</span> Sehingga 15 Oktober 2024
+                Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM500</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM650</span>
               </div>
               <Link href="/register?type=online&category=withoutHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
