@@ -60,13 +60,17 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       },
       update: {
         item: participant.category,
-        amount: GetPrices[participant.category as keyof typeof GetPrices],
+        amount: (parseInt(params.id) <= 639 
+          ? GetPrices["early_bird"][participant.category as keyof typeof GetPrices["early_bird"]]
+          : GetPrices["normal"][participant.category as keyof typeof GetPrices["normal"]]),
         bank: '-', // You can modify this field if necessary
       },
       create: {
         invoice: invoiceNumber,
         item: participant.category,
-        amount: GetPrices[participant.category as keyof typeof GetPrices],
+        amount: (parseInt(params.id) <= 639 
+        ? GetPrices["early_bird"][participant.category as keyof typeof GetPrices["early_bird"]]
+        : GetPrices["normal"][participant.category as keyof typeof GetPrices["normal"]]),
         bank: '-', // Default bank value
       },
     });
