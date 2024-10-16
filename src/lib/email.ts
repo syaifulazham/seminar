@@ -114,12 +114,17 @@ async function generateInvoice(participant: {
     { label: 'Nama:', value: name },
     { label: 'No. kad pengenalan:', value: ic },
     { label: 'Nama dan Alamat Syarikat:', value: `${department}` },
-    { label: '', value: `${address}`},
-    { label: '', value: `${postcode}, ${town}, ${state}`},
-    { label: '', value: `${country}`},
+    { label: '', value: `${address}` },
+    { label: '', value: `${postcode}, ${town}, ${state}` },
+    { label: '', value: `${country}` },
     { label: 'No. telefon:', value: telephoneNumber },
     { label: 'Emel:', value: email },
-    { label: 'Amaun Perlu Bayar: RM', value: GetPrices[category as keyof typeof GetPrices].toString() }, // Type assertion added
+    {
+      label: 'Amaun Perlu Bayar: RM', 
+      value: id <= 639 
+        ? GetPrices["early_bird"][category as keyof typeof GetPrices["early_bird"]] 
+        : GetPrices["normal"][category as keyof typeof GetPrices["normal"]]
+    }, 
   ];
 
   for (const { label, value } of tableData) {
@@ -605,7 +610,9 @@ export const sendApprovalEmail = async (participantId: number) => {
     country: participant.country,
     phoneNumber: participant.telephoneNumber,
     email: participant.email, // Added email assignment
-    amountPaid: GetPrices[participant.category as keyof typeof GetPrices].toString(),
+    amountPaid: (participantId <= 639 
+      ? GetPrices["early_bird"][participant.category as keyof typeof GetPrices["early_bird"]].toString()
+      : GetPrices["normal"][participant.category as keyof typeof GetPrices["normal"]].toString()),
     category: participant.category,
     bank: receipt.bank,
   };
