@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Participant not found' }, { status: 404 });
     }
 
+    console.log('Resending invoice for participant: ', participant.email, participant.id);
     await sendRegistrationEmail(participant.email, participant.id); // Send email
     return NextResponse.json({ message: 'Email sent successfully' }, { status: 200 });
 

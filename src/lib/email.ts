@@ -482,6 +482,8 @@ export async function sendRegistrationEmail(email: string, participantId: number
       throw new Error(`Participant with ID ${participantId} not found`);
     }
 
+    console.log('Participant found: ', participant);
+
     // Prepare data for the invoice
     const participantDetails = {
       id: participant.id,
@@ -497,7 +499,9 @@ export async function sendRegistrationEmail(email: string, participantId: number
       ministry: participant.ministry,
       department: participant.department,
       category: participant.category,
-      amountDue: GetPrices[participant.category as keyof typeof GetPrices].toString(), // This should be dynamic based on your business logic
+      amountDue: (participantId <= 639 
+        ? GetPrices["early_bird"][participant.category as keyof typeof GetPrices["early_bird"]].toString()
+        : GetPrices["normal"][participant.category as keyof typeof GetPrices["normal"]].toString()),
     };
 
     // Generate the PDF invoice
