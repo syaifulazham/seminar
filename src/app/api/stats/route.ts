@@ -69,7 +69,7 @@ export async function GET() {
                 town: 'desc',
             },
         },
-        take: 5,  // Limit to top 5 towns
+        take: 10,  // Limit to top 10 towns
     });
 
     return NextResponse.json({

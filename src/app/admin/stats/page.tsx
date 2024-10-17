@@ -60,7 +60,36 @@ export default function StatsPage() {
         ],
     };
 
-    const topOrigins = stats.topOrigins.map((origin: any) => `${origin.town}, ${origin.state}, ${origin.country}`);
+    // Mapping the top origins with counts for horizontal bar chart
+    const topOriginLabels = stats.topOrigins.map((origin: any) => `${origin.town}, ${origin.state.substring(0, 3)}`);
+    const topOriginCounts = stats.topOrigins.map((origin: any) => origin._count.town);
+
+    const topOriginData = {
+        labels: topOriginLabels,
+        datasets: [
+            {
+                label: 'Top Origin Locations',
+                data: topOriginCounts,
+                backgroundColor: '#36A2EB',
+                borderColor: '#36A2EB',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const topOriginOptions = {
+        indexAxis: 'y',  // This makes the bar chart horizontal
+        scales: {
+            x: {
+                beginAtZero: true,
+            },
+        },
+        plugins: {
+            legend: {
+                display: false,
+            },
+        },
+    };
 
     return (
         <div className="flex flex-col min-h-screen bg-gray-100">
@@ -109,14 +138,15 @@ export default function StatsPage() {
                     </div>
                 </div>
 
-                {/* Top Origin Locations */}
-                <div className="bg-white shadow rounded-lg p-6">
+                {/* Top Origin Locations (Horizontal Bar Chart) */}
+                <div className="bg-white shadow rounded-lg p-6 ">
                     <h2 className="text-lg font-semibold">Top Origin Locations</h2>
-                    <ul className="mt-4 list-disc list-inside">
-                        {topOrigins.map((origin: any, index: any) => (
-                            <li key={index}>{origin}</li>
-                        ))}
-                    </ul>
+                    <div className="mt-4">
+                        <Bar data={topOriginData} options={{
+                            ...topOriginOptions,
+                            indexAxis: 'y', // Set to 'x' or 'y' as needed
+                        }} />
+                    </div>
                 </div>
             </div>
         </div>
