@@ -6,7 +6,6 @@ import { Bar, Line, Pie } from 'react-chartjs-2';  // Using chart.js for graphs
 import { FaUsers } from 'react-icons/fa';  // Icons for visual representation
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 
-
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 export default function StatsPage() {
@@ -48,12 +47,13 @@ export default function StatsPage() {
         ],
     };
 
+    // Now the registrationsByDate is structured with 'date' and 'count'
     const registrationData = {
-        labels: stats.registrationsByDate.map((date: any) => new Date(date.createdAt).toLocaleDateString()),
+        labels: stats.registrationsByDate.map((date: any) => date.date),  // Use the 'date' field directly
         datasets: [
             {
                 label: 'Cumulative Registrations',
-                data: stats.registrationsByDate.map((date: any) => date._count.createdAt),
+                data: stats.registrationsByDate.map((date: any) => date.count),  // Use the 'count' field
                 borderColor: '#36A2EB',
                 fill: false,
             },

@@ -22,7 +22,7 @@ export async function GET() {
         },
     });
 
-    // Get cumulative registrations by date
+    // Get cumulative registrations by exact createdAt timestamp
     const registrationsByDate = await prisma.participant.groupBy({
         by: ['createdAt'],
         _count: {
@@ -32,6 +32,31 @@ export async function GET() {
             createdAt: 'asc',
         },
     });
+
+    // Helper function to format Date object to 'yyyy-mm-dd'
+    const formatDate = (date: Date): string => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    // Manually group by formatted date (ignoring time)
+    const groupedByDate = registrationsByDate.reduce((acc: any, curr: any) => {
+        const date = formatDate(new Date(curr.createdAt));  // Format to 'yyyy-mm-dd'
+
+        // If date already exists, increment count, otherwise initialize
+        if (!acc[date]) {
+            acc[date] = { date, count: curr._count.createdAt };
+        } else {
+            acc[date].count += curr._count.createdAt;
+        }
+
+        return acc;
+    }, {});
+
+    // Convert the object back to an array of results
+    const formattedRegistrationsByDate = Object.values(groupedByDate);
 
     // Get top origin country, state, and town
     const topOrigins = await prisma.participant.groupBy({
@@ -51,7 +76,7 @@ export async function GET() {
         totalRecords,
         statusCounts,
         categoryCounts,
-        registrationsByDate,
+        registrationsByDate: formattedRegistrationsByDate,  // Use formatted registrations
         topOrigins,
     });
 }
