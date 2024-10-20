@@ -182,6 +182,7 @@ const AdminPage = () => {
                 >
                   <option value="">All Status</option>
                   <option value="Approved">Approved</option>
+                  <option value="Approved_LO">Approved (by LO)</option>
                   <option value="UnderReview">Under Review</option>
                   <option value="Pending">Pending</option>
                   <option value="Rejected">Rejected</option>
@@ -226,7 +227,7 @@ const AdminPage = () => {
                     <td className="py-2 px-4 border-b">{participant.email}</td>
                     <td className="py-2 px-4 border-b">{participant.category}</td>
                     <td className="py-2 px-4 border-b">
-                      {participant.status === 'Approved' ? (
+                      {participant.status === 'Approved' || participant.status === 'Approved_LO' ? (
                         <PillApproved />
                       ) : participant.status === 'UnderReview' ? (
                         <PillUnderReview />

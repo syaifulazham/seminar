@@ -563,7 +563,7 @@ export async function sendAcknowledgmentEmail(email: string) {
 }
 
 // Function to send approval email with attached PDF receipt
-export const sendApprovalEmail = async (participantId: number) => {
+export const sendApprovalEmail = async (participantId: number, isLO: boolean = true) => {
   const transporter = nodemailer.createTransport(smtp_options);
 
   
@@ -626,6 +626,34 @@ export const sendApprovalEmail = async (participantId: number) => {
 
   // Generate the PDF invitation card
   const pdfInvitation = await generateInvitationCard(participantDetails);
+  const attachment = isLO ? [ // if status Approved with LO then send receipt and invitation
+    {
+      filename: `Receipt_${participant.id}.pdf`, // Name of the PDF file
+      content: Buffer.from(pdfReceipt), // PDF content in bytes
+      contentType: 'application/pdf', // Set the content type
+    },
+    {
+      filename: `Invitation_${participant.id}.pdf`, // Name of the PDF file
+      content: Buffer.from(pdfInvitation), // PDF content in bytes
+      contentType: 'application/pdf', // Set the content type
+    },
+    {
+      filename: 'flow.png',
+      path: 'src/lib/images/flow.png',
+      cid: 'flow.png'
+    }
+  ] : [ // if status Approved with LO statement then send invitation only
+    {
+      filename: `Invitation_${participant.id}.pdf`, // Name of the PDF file
+      content: Buffer.from(pdfInvitation), // PDF content in bytes
+      contentType: 'application/pdf', // Set the content type
+    },
+    {
+      filename: 'flow.png',
+      path: 'src/lib/images/flow.png',
+      cid: 'flow.png'
+    }
+  ];
 
   // Send the email with the attached PDF
   await transporter.sendMail({
@@ -634,23 +662,7 @@ export const sendApprovalEmail = async (participantId: number) => {
     subject: 'Payment Proof Approved (Seminar Pengurusan Risiko)',
     text: `Dear ${participant.name},\n\nWe are pleased to inform you that your payment has been approved.\n\nThank you for your participation!\n\nBest regards,\nSeminar Team`,
     html: `<p>Dear ${participant.name},</p><p>We are pleased to inform you that your payment has been approved.</p><p>Thank you for your participation!</p><p>Best regards,<br/>Seminar Team</p><img src="cid:flow.png" alt="Flow Chart">`,
-    attachments: [
-      {
-        filename: `Receipt_${participant.id}.pdf`, // Name of the PDF file
-        content: Buffer.from(pdfReceipt), // PDF content in bytes
-        contentType: 'application/pdf', // Set the content type
-      },
-      {
-        filename: `Invitation_${participant.id}.pdf`, // Name of the PDF file
-        content: Buffer.from(pdfInvitation), // PDF content in bytes
-        contentType: 'application/pdf', // Set the content type
-      },
-      {
-        filename: 'flow.png',
-        path: 'src/lib/images/flow.png',
-        cid: 'flow.png'
-      }
-    ],
+    attachments: attachment,
   });
 
   console.log(`Email sent to ${participant.email} with receipt attached.`);

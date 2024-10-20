@@ -134,6 +134,8 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
         {/* Action buttons */}
         <div className="flex justify-between">
           {/* Existing buttons */}
+          {!isSending? (
+            <>
           <button
             onClick={() => onStatusChange(participant.id, 'UnderReview')}
             className="flex items-center text-sm bg-orange-500 text-white px-3 py-2 rounded-md hover:bg-orange-600"
@@ -147,11 +149,21 @@ const ParticipantDetailsModal: React.FC<ParticipantDetailsModalProps> = ({
             Approve
           </button>
           <button
+            onClick={() => onStatusChange(participant.id, 'Approved_LO')}
+            className="flex items-center text-sm bg-green-500 text-white px-3 py-2 rounded-md hover:bg-green-600"
+          >
+            Approve (LO)
+          </button>
+          <button
             onClick={() => onStatusChange(participant.id, 'Rejected')}
             className="flex items-center text-sm bg-red-500 text-white px-3 py-2 rounded-md hover:bg-red-600"
           >
             Reject
           </button>
+          </>
+          ) : (
+            <>Updating...</>
+          )}
         </div>
       </div>
     </div>

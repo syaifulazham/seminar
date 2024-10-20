@@ -78,7 +78,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     // Ensure participant is not null before sending email
     if (updatedParticipant && status.toLowerCase() === 'approved') {
+      console.log('sending approved email with receipt and invitation');
       await sendApprovalEmail(updatedParticipant.id);
+    }else if (updatedParticipant && status.toLowerCase() === 'approved_lo') {
+      console.log('sending approved email with invitation only');
+      await sendApprovalEmail(updatedParticipant.id, true);
     }
 
     return NextResponse.json(updatedParticipant);

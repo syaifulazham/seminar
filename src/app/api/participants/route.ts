@@ -35,7 +35,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 
     // If the status is updated to "Approved", send an approval email
     if (status.toLowerCase() === 'approved') {
+      console.log('sending approved email with receipt and invitation');
       await sendApprovalEmail(participant.id);
+    }else if (status.toLowerCase() === 'approved_lo') {
+      console.log('sending approved email with invitation only');
+      await sendApprovalEmail(participant.id, true);
     }
 
     // Return the updated participant
