@@ -563,7 +563,7 @@ export async function sendAcknowledgmentEmail(email: string) {
 }
 
 // Function to send approval email with attached PDF receipt
-export const sendApprovalEmail = async (participantId: number, isLO: boolean = true) => {
+export const sendApprovalEmail = async (participantId: number, isLO: boolean = false) => {
   const transporter = nodemailer.createTransport(smtp_options);
 
   
@@ -626,7 +626,7 @@ export const sendApprovalEmail = async (participantId: number, isLO: boolean = t
 
   // Generate the PDF invitation card
   const pdfInvitation = await generateInvitationCard(participantDetails);
-  const attachment = isLO ? [ // if status Approved with LO then send receipt and invitation
+  const attachment = !isLO ? [ // if status Approved with LO then send receipt and invitation
     {
       filename: `Receipt_${participant.id}.pdf`, // Name of the PDF file
       content: Buffer.from(pdfReceipt), // PDF content in bytes
