@@ -307,8 +307,10 @@ const RegisterPage = () => {
             className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Pilih Kategori</option>
+            {/*
             <option value="With HRDC - Physical">With HRDC - Physical</option>
             <option value="With HRDC - Online">With HRDC - Online</option>
+            */}
             <option value="Without HRDC - Physical">Without HRDC - Physical</option>
             <option value="Without HRDC - Online">Without HRDC - Online</option>
           </select>

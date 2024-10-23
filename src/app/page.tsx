@@ -100,32 +100,36 @@ const Home = () => {
       <div className={styles.categories}>
         {/* With HRDC Section */}
         <div className={styles.categoryCard}>
-          <h2 className={styles.categoryTitle}>PAKEJ HRDC</h2>
+          <h2 className={styles.categoryTitle + " " + styles.early_bird_end}>PAKEJ HRDC</h2>
           <div className={styles.subcategories}>
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
 
-              <div className={styles.early_bird_container}>
+              <div className={styles.early_bird_container_end}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM650</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM800</span>
               </div>
-              <Link href="/register?type=physical&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              {/*}
+              <a href="#" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" disabled>
                 Sertai
-              </Link>
+              </a>
+              */}
             </div>
             <div className={styles.subcategory}>
               <h3>Atas Talian</h3>
               <h2 className={styles.zoom_meeting_label}><span className={styles.iconContainer}><AiFillVideoCamera /></span>Zoom Meeting</h2>
 
-              <div className={styles.early_bird_container}>
+              <div className={styles.early_bird_container_end}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM650</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM800</span>
               </div>
-              <Link href="/register?type=online&category=withHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              {/*
+              <Link href="#" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Sertai
               </Link>
+              */}
             </div>
           </div>
         </div>
