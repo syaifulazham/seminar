@@ -3,6 +3,7 @@
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 import { useEffect, useState } from 'react';
+export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 
 Chart.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
