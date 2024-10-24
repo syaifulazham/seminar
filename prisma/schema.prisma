@@ -9,7 +9,7 @@ generator client {
 
 model Participant {
   id              Int      @id @default(autoincrement())
-  hashid          String   @unique @default("")
+  hashid          String   @unique
   name            String
   ic              String
   ministry        String
@@ -18,15 +18,16 @@ model Participant {
   postcode        String
   town            String
   state           String
-  country         String  @default("Malaysia")
-  email           String  @unique
+  country         String   @default("Malaysia")
+  email           String   @unique
   telephoneNumber String
   category        String
-  paymentProof    String? // URL to the uploaded payment proof
-  status          String  @default("Pending") // Pending, Approved, UnderReview
+  paymentProof    String?  // URL to the uploaded payment proof
+  status          String   @default("Pending") // Pending, Approved, UnderReview, Approved_LO
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt @default(now())
   lastUpdateBy    String?
+  attendances     Attendance[] // One-to-many relation to Attendance
 }
 
 model Receipt {
@@ -40,9 +41,31 @@ model Receipt {
   lastUpdateBy  String?
 }
 
-
 model Admin {
   id       Int    @id @default(autoincrement())
   email    String @unique
   password String
+}
+
+model Attendance {
+  id            Int         @id @default(autoincrement())
+  participant   Participant @relation(fields: [participantId], references: [id])
+  participantId Int         // Foreign key to Participant
+  hashid        String      // Hash ID of the participant
+  timestamp     DateTime    @default(now()) // Time the attendance is recorded
+  createdAt     DateTime    @default(now())
+}
+
+model Visitor {
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String   @unique
+  phoneNumber     String
+  organizationType String  // Type of organization (e.g., Government, Private)
+  occupationField  String  // Field of occupation (e.g., IT, Education, etc.)
+  gender          String   // Male/Female
+  yearOfBirth     Int
+  state           String
+  country         String   @default("Malaysia")
+  createdAt       DateTime @default(now())
 }
