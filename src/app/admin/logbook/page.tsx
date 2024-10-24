@@ -159,13 +159,13 @@ export default function VisitorsDashboard() {
 
         {/* 6. Bar Chart for Visitors by Bidang Pekerjaan */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Visitors by Bidang Pekerjaan</h2>
+          <h2 className="text-xl font-semibold mb-2">Visitors by Occupation Field</h2>
           <Bar data={bidangPekerjaanData} options={{ indexAxis: 'y' }} />
         </div>
 
         {/* 7. Bar Chart for Visitors by Jenis Organisasi */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-2">Visitors by Jenis Organisasi</h2>
+          <h2 className="text-xl font-semibold mb-2">Visitors by Organization Type</h2>
           <Bar data={jenisOrganisasiData} options={{ indexAxis: 'y' }} />
         </div>
       </div>
