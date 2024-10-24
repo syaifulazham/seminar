@@ -12,8 +12,6 @@ export async function POST(req: NextRequest) {
     // Parse the request body
     const body = await req.json();
 
-    const hashid = "" as string;
-
     const {
       name,
       ic,
@@ -43,7 +41,8 @@ export async function POST(req: NextRequest) {
         country,
         email,
         telephoneNumber,
-        category
+        category,
+        hashid: "" // Add this line to include the required 'hashid' property
       },
     });
 
