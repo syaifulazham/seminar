@@ -1,7 +1,8 @@
 'use client';
 export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 import { useEffect, useState } from 'react';
-import { ReturnHome, Logout } from '@/components/useful';
+import { useRouter } from 'next/navigation';
+import { ReturnHome, Logout, GoLogBook } from '@/components/useful';
 import { Bar, Line, Pie } from 'react-chartjs-2';  // Using chart.js for graphs
 import { FaUsers } from 'react-icons/fa';  // Icons for visual representation
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
@@ -9,9 +10,16 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement,
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
 export default function StatsPage() {
+    const router = useRouter();
     const [stats, setStats] = useState<any>(null);
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            router.push('/admin/login');
+            return;
+        }
+
         const fetchStats = async () => {
             const res = await fetch('/api/stats');
             const data = await res.json();
@@ -98,13 +106,14 @@ export default function StatsPage() {
                 <h1 className="text-2xl font-bold">Stats</h1>
                 <div className="flex flex-row space-x-4 ml-auto">
                     <ReturnHome />
+                    <GoLogBook />
                     <Logout />
                 </div>
             </div>
 
             {/* Main Stats Section */}
             <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
+
                 {/* Total Participants */}
                 <div className="bg-white shadow rounded-lg p-6">
                     <div className="flex items-center space-x-4">

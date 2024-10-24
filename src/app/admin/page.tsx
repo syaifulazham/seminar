@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { VscEye } from 'react-icons/vsc';
-import { Logout, GoStats } from '@/components/useful';
+import { Logout, GoStats, GoLogBook } from '@/components/useful';
 import { PillApproved, PillUnderReview, PillPending, PillRejected } from '@/components/Pills';
 import ParticipantDetailsModal from '@/components/ParticipantDetails';
 
@@ -141,6 +141,7 @@ const AdminPage = () => {
         <h1 className="text-2xl font-bold">Admin Dashboard</h1>
         <div className="flex flex-row space-x-4 ml-auto">
           <GoStats />
+          <GoLogBook />
           <Logout />
         </div>
       </div>

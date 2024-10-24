@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 
 import { FaHome } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
+import { IoPeopleSharp } from "react-icons/io5";
 
 import { TbLogout } from "react-icons/tb";
 import { countries } from "@/lib/data";
@@ -15,7 +16,7 @@ import Link from "next/link";
 export const ReturnHome = () => {
     return (
         <Link href="/admin">
-            <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-green-500 text-white">
+            <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-green-500 text-white text-sm">
                 <FaHome /> 
                 <span className="ml-2">Home</span>
             </div>
@@ -29,6 +30,17 @@ export const GoStats = () => {
           <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-blue-500 text-white text-sm">
               <IoIosStats /> 
               <span className="ml-2">Show Stats</span>
+          </div>
+      </Link>
+  );
+};
+
+export const GoLogBook = () => {
+  return (
+      <Link href="/admin/logbook">
+          <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-purple-500 text-white text-sm">
+              <IoPeopleSharp /> 
+              <span className="ml-2">Visitors</span>
           </div>
       </Link>
   );
