@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Cookies from 'js-cookie'; // Import the cookie handling library
 import { countries } from '@/lib/data'; // Import countries data
 import karnival from '@/lib/images/karnival.png'
 import Image from 'next/image';
+
 
 const states = [
     'JOHOR', 'MELAKA', 'NEGERI SEMBILAN', 'SELANGOR', 'PERAK', 'KEDAH',
@@ -14,10 +14,36 @@ const states = [
 
 const organisasi = ['Kerajaan', 'Swasta', 'Not-Profit', 'Individu Persendirian'];
 
-const bidangPekerjaan = ['IT', 'Pendidikan', 'Kesihatan', 'Kewangan','Pertanian', 'Perkhidmatan', 'Kejuruteraan', 'Pertahanan/ Keselamatan', 'Lain-lain'];
+const bidangPekerjaan = ['IT', 'Pendidikan', 'Kesihatan', 'Kewangan', 'Pertanian', 'Perkhidmatan', 'Kejuruteraan', 'Pertahanan/ Keselamatan', 'Lain-lain'];
+
+
+// Native JavaScript Cookie Management
+function setCookie(name: string, value: string, days: number) {
+    let expires = "";
+    if (days) {
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name: string) {
+    const nameEQ = name + "=";
+    const cookiesArray = document.cookie.split(';');
+    for (let i = 0; i < cookiesArray.length; i++) {
+        let cookie = cookiesArray[i];
+        while (cookie.charAt(0) === ' ') {
+            cookie = cookie.substring(1, cookie.length);
+        }
+        if (cookie.indexOf(nameEQ) === 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+        }
+    }
+    return null;
+}
 
 export default function CarnivalVisitors() {
-    const [country, setCountry] = useState('Malaysia');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -34,7 +60,7 @@ export default function CarnivalVisitors() {
 
     // Check if the cookie exists on load
     useEffect(() => {
-        const hasSubmitted = Cookies.get('visitorFormSubmitted');
+        const hasSubmitted = getCookie('visitorFormSubmitted');
         if (hasSubmitted) {
             setIsSubmitted(true);
         }
@@ -62,15 +88,16 @@ export default function CarnivalVisitors() {
         const data = await res.json();
         if (data.success) {
             // Set the cookie for form submission
-            Cookies.set('visitorFormSubmitted', 'true', { expires: 365 }); // Set cookie to expire in 1 year
+            setCookie('visitorFormSubmitted', 'true', 365); // Set cookie to expire in 1 year
             setIsSubmitted(true);
-            //alert('Visitor information saved successfully!');
+            alert('Visitor information saved successfully!');
         }
     };
 
     if (isSubmitted) {
         return (
-            <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+                <Image src={karnival} alt="karnival" width={350} height={350} />
                 <div className="bg-white shadow-md rounded-lg p-8 max-w-2xl w-full text-center">
                     <h1 className="text-2xl font-semibold mb-6 text-gray-800">Terima kasih</h1>
                     <p className="text-lg text-gray-700">Terima kasih, anda telah pun mengisi log lawatan. Terima kasih.</p>
@@ -117,7 +144,7 @@ export default function CarnivalVisitors() {
                             name="phoneNumber"
                             value={formData.phoneNumber}
                             onChange={handleInputChange}
-                            placeholder="Nombor Telefon"
+                            placeholder="No. Telefon"
                             required
                             className="w-full p-3 border border-gray-300 rounded-lg"
                         />
@@ -151,9 +178,9 @@ export default function CarnivalVisitors() {
                             className="w-full p-3 border border-gray-300 rounded-lg"
                         >
                             <option value="">Bidang Pekerjaan</option>
-                            {bidangPekerjaan.map((bidang) => (
-                                <option key={bidang} value={bidang}>
-                                    {bidang}
+                            {bidangPekerjaan.map((field) => (
+                                <option key={field} value={field}>
+                                    {field}
                                 </option>
                             ))}
                         </select>
@@ -214,7 +241,7 @@ export default function CarnivalVisitors() {
                             required
                             className="w-full p-3 border border-gray-300 rounded-lg"
                         >
-                            <option value="">Select Country</option>
+                            <option value="">Negara</option>
                             {countries.map((country) => (
                                 <option key={country.code} value={country.name}>
                                     {country.name}
@@ -223,24 +250,23 @@ export default function CarnivalVisitors() {
                         </select>
                     </div>
 
-
                     {/* State */}
                     {formData.country === 'Malaysia' && (
-                    <div>
-                        <select
-                            name="state"
-                            value={formData.state}
-                            onChange={handleInputChange}
-                            required
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                        >
-                            <option value="">Negeri</option>
-                            {states.map((state) => (
-                                <option key={state} value={state}>
-                                    {state}
-                                </option>
-                            ))}
-                        </select>
+                        <div>
+                            <select
+                                name="state"
+                                value={formData.state}
+                                onChange={handleInputChange}
+                                required
+                                className="w-full p-3 border border-gray-300 rounded-lg"
+                            >
+                                <option value="">Negeri</option>
+                                {states.map((state) => (
+                                    <option key={state} value={state}>
+                                        {state}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     )}
 
@@ -250,7 +276,7 @@ export default function CarnivalVisitors() {
                             type="submit"
                             className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
                         >
-                            Submit
+                            Simpan
                         </button>
                     </div>
                 </form>
