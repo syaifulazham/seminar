@@ -659,9 +659,9 @@ export const sendApprovalEmail = async (participantId: number, isLO: boolean = f
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
     to: participant.email,
-    subject: 'Payment Proof Approved (Seminar Pengurusan Risiko)',
-    text: `Dear ${participant.name},\n\nWe are pleased to inform you that your payment has been approved.\n\nThank you for your participation!\n\nBest regards,\nSeminar Team`,
-    html: `<p>Dear ${participant.name},</p><p>We are pleased to inform you that your payment has been approved.</p><p>Thank you for your participation!</p><p>Best regards,<br/>Seminar Team</p><img src="cid:flow.png" alt="Flow Chart">`,
+    subject: 'Registration Approved (Seminar Pengurusan Risiko)',
+    text: `Dear ${participant.name},\n\nWe are pleased to inform you that your registration has been approved.\n\nThank you for your participation!\n\nBest regards,\nSeminar Team`,
+    html: `<p>Dear ${participant.name},</p><p>We are pleased to inform you that your registration has been approved.</p><p>Thank you for your participation!</p><p>Best regards,<br/>Seminar Team</p><img src="cid:flow.png" alt="Flow Chart">`,
     attachments: attachment,
   });
 
