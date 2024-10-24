@@ -20,7 +20,7 @@ const RegisterPage = () => {
     state: '',
     email: '',
     telephoneNumber: '',
-    category: 'With HRDC - Physical',
+    category: 'Without HRDC - Online',
     country: 'Malaysia',
   });
 
@@ -111,10 +111,8 @@ const RegisterPage = () => {
     <div className="max-w-2xl mx-auto p-8 bg-white rounded-md shadow-md">
       <h1 className="text-2xl font-bold mb-6">Pendaftaran Seminar </h1>
       {error && <div className="mb-4 text-red-500">{error}</div>}
-      <span className="text-xs text-gray-500 italic">
-        <h1 className="text-3xl text-center">Borang pendaftaran ini ditutup sehingga 25 Okt 2024</h1>
-      </span>
-      {/*
+      
+      
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nama <small className="text-xs text-gray-500 italic">(Name)</small></label>
@@ -311,13 +309,13 @@ const RegisterPage = () => {
             className="mt-1 block w-full pl-3 pr-10 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
             <option value="">Pilih Kategori</option>
-            /*}
+            
             {/*
             <option value="With HRDC - Physical">With HRDC - Physical</option>
             <option value="With HRDC - Online">With HRDC - Online</option>
-            */}
-            {/*
             <option value="Without HRDC - Physical">Without HRDC - Physical</option>
+            */}
+            
             <option value="Without HRDC - Online">Without HRDC - Online</option>
           </select>
         </div>
@@ -332,7 +330,7 @@ const RegisterPage = () => {
           </button>
         </div>
       </form>
-      */}
+      
       <div className="mt-4 text-xs text-gray-500">
         <p>Data pribadi anda dilindungi di bawah Akta Perlindungan Data Peribadi Malaysia 2010 (PDPA)</p>
       </div>

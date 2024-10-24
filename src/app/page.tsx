@@ -141,14 +141,16 @@ const Home = () => {
             <div className={styles.subcategory}>
               <h3>Fizikal</h3>
 
-              <div className={styles.early_bird_container}>
+              <div className={styles.early_bird_container_end}>
                 <FaEarlybirds className="text-4xl" />
                 Harga Early Bird!! <span className={styles.price + " " + styles.early_bird_end}>RM500</span> <span className={styles.early_bird_end}>Sehingga 15 Oktober 2024</span>
                 <span className={styles.normal_price_container}>Harga Normal RM650</span>
               </div>
+              {/*
               <Link href="/register?type=physical&category=withoutHRDC" className="inline-block bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 Sertai
               </Link>
+              */}
             </div>
             <div className={styles.subcategory}>
               <h3>Atas Talian</h3>
