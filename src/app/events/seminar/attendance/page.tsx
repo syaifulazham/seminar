@@ -107,6 +107,7 @@ export default function SeminarAttendance() {
                     onChange={handleInputChange}
                     className="absolute opacity-0 pointer-events-none"
                     aria-hidden="true"
+                    autoFocus
                 />
             </div>
         </div>
