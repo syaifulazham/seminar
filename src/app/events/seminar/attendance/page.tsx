@@ -105,7 +105,7 @@ export default function SeminarAttendance() {
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
-                    className="absolute "
+                    className="absolute opacity-0 pointer-events-none"
                     aria-hidden="true"
                 />
             </div>
