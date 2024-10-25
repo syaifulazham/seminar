@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
         email,
         telephoneNumber,
         category,
-        hashid: "" // Add this line to include the required 'hashid' property
+        hashid: "", // Add this line to include the required 'hashid' property
+        qrCode: ""
       },
     });
 
