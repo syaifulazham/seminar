@@ -10,23 +10,34 @@ export default function SeminarAttendance() {
     const [participant, setParticipant] = useState<Participant | null>(null);
     const [attendanceCount, setAttendanceCount] = useState(0);
     const [massage, setMassage] = useState('');
+    const [isDisabled, setIsDisabled] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isFocused, setIsFocused] = useState(false);
 
     useEffect(() => {
-        // Focus on the invisible input field when the component mounts
-        if (inputRef.current) {
+        // Focus on the input when component mounts if it's not disabled
+        if (inputRef.current && !isDisabled) {
             inputRef.current.focus();
         }
-    }, []);
+    }, [isDisabled]);
 
     const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
 
-        if (e.target.value) {
+        if (e.target.value && e.target.value.length >= 64) {
+            setIsDisabled(true); // Disable input
+
+            // Timeout to re-enable input after 3 seconds
+            setTimeout(() => {
+                setIsDisabled(false);
+                if (inputRef.current) inputRef.current.focus(); // Refocus the input after enabling
+            }, 3000);
+
+            // Send request to record attendance
             const res = await fetch('/api/attendance/record', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ hashid: e.target.value }),
+                body: JSON.stringify({ qrCode: e.target.value }),
             });
 
             const data = await res.json();
@@ -37,7 +48,9 @@ export default function SeminarAttendance() {
                 setMassage('');
             } else {
                 setMassage('Participant not found');
-                setParticipant(null);
+                setParticipant(data.participant);
+                setInputValue(''); // Reset input value
+                setMassage('');
             }
         }
     };
@@ -52,12 +65,14 @@ export default function SeminarAttendance() {
                 <div className="absolute bottom-0 left-0 m-4 flex flex-col justify-center items-center text-lg font-medium text-gray-700">
                     <div>Kehadiran</div>
                     <span className="text-blue-600 text-4xl">{attendanceCount}</span>
+                    <div className="text-center">
+                        <p>{isFocused ? 'Ready' : 'Standby'}</p>
+                    </div>
                 </div>
 
                 {/* Display participant info when available */}
                 <h1 className="text-2xl font-semibold mb-6 text-center text-gray-800">Kehadiran Seminar</h1>
                 <h3 className="text-lg font-semibold mb-6 text-center text-gray-800">Sila imbas QR Code anda untuk kehadiran</h3>
-
 
                 {participant && (
                     <div className="bg-gray-50 p-4 rounded-lg mb-6">
@@ -65,32 +80,23 @@ export default function SeminarAttendance() {
 
                         {/* Grid layout for participant details */}
                         <div className="grid grid-cols-2 gap-4">
-
-                            {/* Name - Full row */}
                             <div className="col-span-2 text-center border-b border-solid border-gray-300">
                                 <p className="text-2xl font-bold text-blue-500">{participant.name}</p>
                             </div>
-
-                            {/* Department - Full row */}
                             <div className="col-span-2 text-center border-b border-solid border-gray-300">
                                 <p className="text-gray-700">{participant.department}</p>
                             </div>
-
-                            {/* Town, State, and Category - Two-column layout */}
                             <div className="text-center border-r border-solid border-gray-300">
                                 <p className="text-gray-700">{participant.town}</p>
                             </div>
                             <div className="text-center">
                                 <p className="text-gray-700">{participant.state}</p>
                             </div>
-
-                            {/* Assuming there's a category field */}
                             <div className="col-span-2">
                                 <p className="text-gray-700">{participant.category}</p>
                             </div>
                         </div>
                     </div>
-
                 )}
 
                 {massage && (
@@ -108,6 +114,8 @@ export default function SeminarAttendance() {
                     className="absolute opacity-0 pointer-events-none"
                     aria-hidden="true"
                     autoFocus
+                    disabled={isDisabled} // Disable input when isDisabled is true
+                    onBlur={() => inputRef.current?.focus()}
                 />
             </div>
         </div>
