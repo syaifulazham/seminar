@@ -1,22 +1,18 @@
-// /app/api/attendance/record/route.ts
-
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma'; // Assuming you have Prisma setup
+import { prisma } from '@/lib/prisma';
 
 export async function POST(request: Request) {
   const { qrCode } = await request.json();
-  
-  // Check if participant exists with the required status and category
+
   const participant = await prisma.participant.findFirst({
     where: {
-      qrCode, // Use equals to specify the condition
+      qrCode,  // Ensure this exists in the Prisma schema
       status: { in: ['Approved', 'Approved_LO'] },
       category: { in: ['With HRDC - Physical', 'Without HRDC - Physical'] },
     },
   });
 
   if (!participant) {
-    console.log('Participant not found or not eligible:', qrCode);
     return NextResponse.json({
       success: false,
       participant: {
