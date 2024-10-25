@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   // Check if participant exists with the required status and category
   const participant = await prisma.participant.findFirst({
     where: {
-      qrCode: qrCode, // Use equals to specify the condition
+      qrCode, // Use equals to specify the condition
       status: { in: ['Approved', 'Approved_LO'] },
       category: { in: ['With HRDC - Physical', 'Without HRDC - Physical'] },
     },
