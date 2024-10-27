@@ -285,7 +285,7 @@ export default function AdminAttendancePage() {
                                         onClick={() => handleToggleAttendance(record, 2)}
                                         className={`px-2 py-1 rounded ${record.day_2 * 1 === 1 ? 'bg-green-500' : 'bg-red-500'} text-white`}
                                     >
-                                        {record.day_2 * 1 === 1 ? 'Hadir' : 'Tidak Hadir'}
+                                        {record.day_2 * 1 === 1 ? 'Hadir' : 'X Hadir'}
                                     </button>
                                 </td>
                                 <td className="border border-gray-300 px-4 py-2 text-center">
