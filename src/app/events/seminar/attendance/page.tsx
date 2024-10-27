@@ -13,11 +13,13 @@ export default function SeminarAttendance() {
     const [isDisabled, setIsDisabled] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(false);
+    const [selectedDate, setSelectedDate] = useState<string>('27-10-2024'); // Default selected date
 
     useEffect(() => {
         // Focus on the input when component mounts if it's not disabled
         if (inputRef.current && !isDisabled) {
             inputRef.current.focus();
+            setIsFocused(true);
         }
     }, [isDisabled]);
 
@@ -63,11 +65,28 @@ export default function SeminarAttendance() {
             <div className="bg-white shadow-md rounded-lg p-8 max-w-xl w-full h-[500px]">
                 {/* Display attendance count */}
                 <div className="absolute bottom-0 left-0 m-4 flex flex-col justify-center items-center text-lg font-medium text-gray-700">
-                    <div>Kehadiran</div>
+                    <div className="p-0 m-0 space-y-0">Kehadiran</div>
+                    <div className="text-sm text-gray-500 space-y-0">{selectedDate}</div>
                     <span className="text-blue-600 text-4xl">{attendanceCount}</span>
                     <div className="text-center">
                         <p>{isFocused ? 'Ready' : 'Standby'}</p>
                     </div>
+                </div>
+
+                {/* Date Toggle Buttons */}
+                <div className="flex justify-center space-x-4 mb-6">
+                    <button
+                        className={`px-4 py-2 rounded ${selectedDate === '26-10-2024' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                        onClick={() => setSelectedDate('26-10-2024')}
+                    >
+                        26-10-2024
+                    </button>
+                    <button
+                        className={`px-4 py-2 rounded ${selectedDate === '27-10-2024' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                        onClick={() => setSelectedDate('27-10-2024')}
+                    >
+                        27-10-2024
+                    </button>
                 </div>
 
                 {/* Display participant info when available */}

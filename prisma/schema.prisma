@@ -49,10 +49,12 @@ model Admin {
 
 model Attendance {
   id            Int         @id @default(autoincrement())
+  label         String      @default("26-10-2024")
   participantId Int         
   qrCode        String      
   timestamp     DateTime    @default(now()) // Time the attendance is recorded
   createdAt     DateTime    @default(now())
+  @@unique([label, participantId]) // Ensure unique constraint on label and participantId
 }
 
 model Visitor {

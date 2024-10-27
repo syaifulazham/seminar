@@ -445,6 +445,70 @@ SEMINAR & MAJLIS PERASMIAN GARIS PANDUAN PRISMA DI TEMPAT KERJA 2024
   return pdfBytes;
 }
 
+export async function generateCertificate(participant: {
+  name: string;
+  ic: string;
+  id: string;
+}): Promise<Uint8Array> {
+  // Load the template PDF as the backdrop
+  const templatePath = path.resolve('./src/lib/cert/cert-template.pdf');
+  const templateBytes = fs.readFileSync(templatePath);
+  const pdfDoc = await PDFDocument.load(templateBytes);
+
+  // Embed the font to use for writing text
+  const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+  const fontSize = 22;
+  const fontMid = 20;
+  const fontSmall = 8;
+
+  // Access the first page
+  const page = pdfDoc.getPage(0);
+  const { width, height } = page.getSize();
+  const xAdjust = 120;
+  // Calculate positions based on the page dimensions
+  const nameY = (height / 2) + 80; // Center for the name
+  const icY = nameY - 22; // Place IC below name
+
+  const idY = height - 18; // Place ID above name
+  const idX = 260;
+
+  const textColor = rgb(0, 0, 0);
+
+  // Draw Participant Name at the center
+  const nameTextWidth = font.widthOfTextAtSize(participant.name, fontSize);
+  page.drawText(participant.name, {
+    x: (width + xAdjust - nameTextWidth) / 2,
+    y: nameY,
+    size: fontSize,
+    font,
+    color: textColor,
+  });
+
+  // Draw Participant IC below the name
+  const icTextWidth = font.widthOfTextAtSize(participant.ic, fontSize);
+  page.drawText(participant.ic, {
+    x: (width + xAdjust - icTextWidth) / 2,
+    y: icY,
+    size: fontMid,
+    font,
+    color: textColor,
+  });
+
+  // Draw Participant ID above the name
+  //const idTextWidth = font.widthOfTextAtSize(`/${participant.id}`, fontSize);
+  page.drawText(`/${participant.id.toString().padStart(6, '0')}`, {
+    x: idX,
+    y: idY,
+    size: fontSmall,
+    font,
+    color: textColor,
+  });
+
+  // Save the modified document
+  const pdfBytes = await pdfDoc.save();
+  return pdfBytes;
+}
+
 
 
 const smtp_options = {
@@ -667,3 +731,38 @@ export const sendApprovalEmail = async (participantId: number, isLO: boolean = f
 
   console.log(`Email sent to ${participant.email} with receipt attached.`);
 };
+
+export async function sendCertificateEmail(participantId: number) {
+  const participant = await prisma.participant.findUnique({
+    where: { id: participantId },
+  });
+
+  if (!participant) {
+    throw new Error(`Participant with ID ${participantId} not found`);
+  }
+
+  const certificatePdf = await generateCertificate({
+    name: participant.name,
+    ic: participant.ic,
+    id: participant.id.toString(),
+  });
+
+  const transporter = nodemailer.createTransport(smtp_options);
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: participant.email,
+    subject: 'Certificate of Participation',
+    text: `Dear ${participant.name},\n\nWe are pleased to inform you that your certificate has been issued.\n\nThank you for your participation!\n\nBest regards,\nSeminar Team`,
+    html: `<p>Dear ${participant.name},</p><p>We are pleased to inform you that your certificate has been issued.</p><p>Thank you for your participation!</p><p>Best regards,<br/>Seminar Team</p>`,
+    attachments: [
+      {
+        filename: `Certificate_${participant.id}.pdf`,
+        content: Buffer.from(certificatePdf),
+        contentType: 'application/pdf',
+      },
+    ],
+  });
+
+  console.log(`Email sent to ${participant.email} with certificate attached.`);
+}

@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
     // Update the participant with the generated hash
     await prisma.participant.update({
       where: { id: participant.id },
-      data: { hashid: hash }, // Ensure 'hash' is defined in the Prisma schema
+      data: { hashid: hash, qrCode: hash }, // Ensure 'hash' is defined in the Prisma schema
     });
 
     // Send acknowledgment email with a link to upload payment proof

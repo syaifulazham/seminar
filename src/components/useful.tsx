@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { FaHome } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { IoPeopleSharp } from "react-icons/io5";
+import { TbCertificate } from "react-icons/tb";
 
 import { TbLogout } from "react-icons/tb";
 import { countries } from "@/lib/data";
@@ -41,6 +42,17 @@ export const GoLogBook = () => {
           <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-purple-500 text-white text-sm">
               <IoPeopleSharp /> 
               <span className="ml-2">Visitors</span>
+          </div>
+      </Link>
+  );
+};
+
+export const GoCert = () => {
+  return (
+      <Link href="/admin/attendance">
+          <div className="flex flex-row items-center border border-gray-300 rounded-md px-2 py-1 bg-purple-500 text-white text-sm">
+              <TbCertificate /> 
+              <span className="ml-2">Certificate</span>
           </div>
       </Link>
   );

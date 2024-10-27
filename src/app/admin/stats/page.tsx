@@ -2,7 +2,7 @@
 export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ReturnHome, Logout, GoLogBook } from '@/components/useful';
+import { ReturnHome, Logout, GoCert } from '@/components/useful';
 import { Bar, Line, Pie } from 'react-chartjs-2';  // Using chart.js for graphs
 import { FaUsers } from 'react-icons/fa';  // Icons for visual representation
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
@@ -106,7 +106,7 @@ export default function StatsPage() {
                 <h1 className="text-2xl font-bold">Stats</h1>
                 <div className="flex flex-row space-x-4 ml-auto">
                     <ReturnHome />
-                    <GoLogBook />
+                    <GoCert />
                     <Logout />
                 </div>
             </div>
