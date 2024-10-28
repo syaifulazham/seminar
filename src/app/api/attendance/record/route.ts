@@ -81,10 +81,12 @@ export async function GET() {
           IF(a.category REGEXP 'Physical', 'Physical', 'Online') AS seminar_mode,
           IF(b.id IS NULL, 0, 1) AS day_1,
           IF(c.id IS NULL, 0, 1) AS day_2,
+          if(d.id IS NULL, 0, 1) AS cert,
           a.qrCode
       FROM Participant a
       LEFT JOIN (SELECT * FROM Attendance WHERE label = '26-10-2024') b ON a.id = b.participantId
       LEFT JOIN (SELECT * FROM Attendance WHERE label = '27-10-2024') c ON a.id = c.participantId
+      LEFT JOIN Certificate d ON a.id = d.participantId
       WHERE a.status REGEXP 'Approved';
     `;
 

@@ -52,9 +52,16 @@ model Attendance {
   label         String      @default("26-10-2024")
   participantId Int         
   qrCode        String      
+  certificate   Int         @default(0)
   timestamp     DateTime    @default(now()) // Time the attendance is recorded
   createdAt     DateTime    @default(now())
   @@unique([label, participantId]) // Ensure unique constraint on label and participantId
+}
+
+model Certificate {
+  id            Int         @id @default(autoincrement())
+  participantId Int
+  createdAt     DateTime    @default(now())
 }
 
 model Visitor {

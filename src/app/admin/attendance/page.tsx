@@ -3,8 +3,11 @@
 
 import { useEffect, useState } from 'react';
 import { FaSpinner } from 'react-icons/fa'; // Import Spinner from react-icons
+import { GrCertificate } from "react-icons/gr";
 import { ReturnHome, Logout, GoStats } from '@/components/useful';
 import { useRouter } from 'next/navigation';
+import { FaCheckCircle } from "react-icons/fa";
+
 export const dynamic = 'force-dynamic';  // Forces dynamic rendering
 
 type AttendanceRecord = {
@@ -20,6 +23,7 @@ type AttendanceRecord = {
     day_1: number;
     day_2: number;
     qrCode: string;
+    cert: number;
 };
 
 export default function AdminAttendancePage() {
@@ -27,7 +31,7 @@ export default function AdminAttendancePage() {
     const [attendanceData, setAttendanceData] = useState<AttendanceRecord[]>([]);
     const [filteredData, setFilteredData] = useState<AttendanceRecord[]>([]);
     const [loading, setLoading] = useState(true);
-    const [loadingCertificate, setLoadingCertificate] = useState<string | null>(null); // Add loading state for individual certificates
+    const [loadingCertificate, setLoadingCertificate] = useState<Set<string>>(new Set()); // Track loading per participant
 
     // Filter states
     const [searchTerm, setSearchTerm] = useState('');
@@ -119,7 +123,7 @@ export default function AdminAttendancePage() {
     };
 
     const handleSendCertificate = async (participantId: string) => {
-        setLoadingCertificate(participantId); // Set loading state to the participant ID
+        setLoadingCertificate((prev) => new Set(prev).add(participantId)); // Set loading state to the participant ID
         try {
             await fetch(`/api/cert/send`, {
                 method: 'POST',
@@ -129,7 +133,11 @@ export default function AdminAttendancePage() {
         } catch (error) {
             console.error('Error sending certificate:', error);
         } finally {
-            setLoadingCertificate(null); // Reset loading state
+            setLoadingCertificate((prev) => {
+                const newLoadingState = new Set(prev);
+                newLoadingState.delete(participantId); // Remove participant from loading set
+                return newLoadingState;
+            });
         }
     };
 
@@ -260,7 +268,8 @@ export default function AdminAttendancePage() {
                             <th className="border border-gray-300 px-4 py-2 w-24">Mode</th>
                             <th className="border border-gray-300 px-4 py-2 w-24">26 Okt</th>
                             <th className="border border-gray-300 px-4 py-2 w-24">27 Okt</th>
-                            <th className="border border-gray-300 px-4 py-2 w-24">Certificate</th>
+                            <th className="border border-gray-300 px-4 py-2 w-24">Gen. Cert</th>
+                            <th className="border border-gray-300 px-4 py-2 w-14">Cert Sent</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -289,19 +298,24 @@ export default function AdminAttendancePage() {
                                     </button>
                                 </td>
                                 <td className="border border-gray-300 px-4 py-2 text-center">
-                                    <button
-                                        className={`px-2 py-1 rounded ${loadingCertificate === record.id ? 'bg-gray-400' : 'bg-blue-500'} text-white flex items-center justify-center`}
-                                        onClick={() => handleSendCertificate(record.id)}
-                                        disabled={loadingCertificate === record.id}
-                                    >
-                                        {loadingCertificate === record.id ? (
-                                            <>
-                                                <FaSpinner className="animate-spin mr-2" /> Sending Cert
-                                            </>
-                                        ) : (
-                                            'Certificate'
-                                        )}
-                                    </button>
+                                {loadingCertificate.has(record.id) ? (
+                                        <FaSpinner className="animate-spin" />
+                                    ) : record.cert === 1 ? (
+                                        <FaCheckCircle className="text-green-500" />
+                                    ) : (
+                                        <button
+                                            onClick={() => handleSendCertificate(record.id)}
+                                            className="px-2 py-1 bg-blue-500 text-white rounded"
+                                            disabled={loadingCertificate.has(record.id)}
+                                        >
+                                            <GrCertificate />
+                                        </button>
+                                    )}
+                                </td>
+                                <td className="border border-gray-300 px-4 py-2 text-center text-2xl">
+                                    <div className="flex flex-row items-center justify-center">
+                                        {record.cert * 1 === 1 ? <FaCheckCircle className="text-green-500" /> : ''}
+                                    </div>
                                 </td>
                             </tr>
                         ))}
