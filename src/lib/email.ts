@@ -753,8 +753,21 @@ export async function sendCertificateEmail(participantId: number) {
     from: process.env.EMAIL_USER,
     to: participant.email,
     subject: 'Certificate of Participation',
-    text: `Dear ${participant.name},\n\nWe are pleased to inform you that your certificate has been issued.\n\nThank you for your participation!\n\nBest regards,\nSeminar Team`,
-    html: `<p>Dear ${participant.name},</p><p>We are pleased to inform you that your certificate has been issued.</p><p>Thank you for your participation!</p><p>Best regards,<br/>Seminar Team</p>`,
+    text: `
+    Dear ${participant.name},\n\n
+    We are pleased to inform you that your certificate has been issued.\n\n
+    Thank you for your participation!\n\n
+    Here is the link for presentations’ handout and documents for HRCD claim submission:\n\n
+    https://drive.google.com/drive/folders/1hX-fdoU4E_4h-Yc5JN2Fu6ON9RO2QMqS?usp=share_link
+    Best regards,\n
+    Seminar Team`,
+    html: `
+    <p>Dear ${participant.name},</p>
+    <p>We are pleased to inform you that your certificate has been issued.</p>
+    <p>Thank you for your participation!</p>
+    <p>Best regards,<br/>Seminar Team</p>
+    <p>Here is the link for presentations’ handout and documents for HRCD claim submission:</p>
+    <a href="https://drive.google.com/drive/folders/1hX-fdoU4E_4h-Yc5JN2Fu6ON9RO2QMqS?usp=share_link">https://drive.google.com/drive/folders/1hX-fdoU4E_4h-Yc5JN2Fu6ON9RO2QMqS?usp=share_link</a>`,
     attachments: [
       {
         filename: `Certificate_${participant.id}.pdf`,
