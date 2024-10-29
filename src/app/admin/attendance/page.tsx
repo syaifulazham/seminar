@@ -300,8 +300,6 @@ export default function AdminAttendancePage() {
                                 <td className="border border-gray-300 px-4 py-2 text-center">
                                 {loadingCertificate.has(record.id) ? (
                                         <FaSpinner className="animate-spin" />
-                                    ) : record.cert === 1 ? (
-                                        <FaCheckCircle className="text-green-500" />
                                     ) : (
                                         <button
                                             onClick={() => handleSendCertificate(record.id)}
