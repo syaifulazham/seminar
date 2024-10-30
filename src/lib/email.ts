@@ -451,7 +451,7 @@ export async function generateCertificate(participant: {
   id: string;
 }): Promise<Uint8Array> {
   // Load the template PDF as the backdrop
-  const templatePath = path.resolve('./src/lib/cert/cert-template.pdf');
+  const templatePath = path.resolve('./src/lib/cert/cert-template-2.pdf');
   const templateBytes = fs.readFileSync(templatePath);
   const pdfDoc = await PDFDocument.load(templateBytes);
 
